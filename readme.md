@@ -11,7 +11,7 @@ return (
 	<div>
 		<p>Hello world</p>
 	</div>
-	)
+)
 }
 ```
 Vidimo funkciju koja **vraća** HTML *div* tag u return izrazu. Iako ovo izgleda kao HTML, zapravo je riječ o JSX kodu. Kao što je rečeno, on izgleda kao HTML, ali zapravo to nije. Ta činjenica omogućuje ovo: 
