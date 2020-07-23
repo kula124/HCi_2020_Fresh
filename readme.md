@@ -10,29 +10,29 @@ Javascript ekosustav je okolina javascripta koja se sastoji od biblioteka, softv
 
   
 
-U ovom poglavlju fokusirat ćemo se na *package manager* aplikaciju koja omogućava jedonstavan i brz pristup repozitoriju gotovog koda kako ne bismo nepotrebno riješavali riješene probleme. Korištenje ovih paketa je besplatno te su dani kao *open source* softver.
+U ovom poglavlju fokusirat ćemo se na *package manager* aplikaciju koja omogućava jednostavan i brz pristup repozitoriju gotovog koda kako ne bismo nepotrebno riješavali riješene probleme. Korištenje ovih paketa je besplatno te su dani kao *open source* softver.
 
-Kao što znamo, Javascript je jezik koji se isključivo izvršava unutar web pretraživaća (Chrome, Firefox i sl.), međutim postoji run-time okruženje za pokretanje Javascript koda izvan okvira pretraživaća, to okruženje je **NodeJS**.
+Kao što znamo, Javascript je jezik koji se isključivo izvršava unutar web pretraživača (Chrome, Firefox i sl.), međutim postoji run-time okruženje za pokretanje Javascript koda izvan okvira pretraživača, to okruženje je **NodeJS**.
 
 ### NodeJS
 
-Radi jednosavnosti, NodeJS je program koji može pokretati Javasctipt kod sa tvrdog diska slično kao što to može i Java run-time. Princp rada je jednostavan: NodeJS enkasulira **V8** engine, što je upravo Javascript engine koji koristi Chrome pretraživać. Možemo reći da je NodeJS izvadio motor automobila i pokreće taj motor van automobila i koristi ga za druge namjene. Ta namjena je najčešće web server, stoga se NodeJS često zove "Javascript za servere". Način izvršavanja jako je sličan izvršavanju Java koda.<br/>
+Radi jednostavnosti, NodeJS je program koji može pokretati Javasctipt kod sa tvrdog diska slično kao što to može i Java run-time. Princip rada je jednostavan: NodeJS enkasulira **V8** engine, što je upravo Javascript engine koji koristi Chrome pretraživač. Možemo reći da je NodeJS izvadio motor automobila i pokreće taj motor van automobila i koristi ga za druge namjene. Ta namjena je najčešće web server, stoga se NodeJS često zove "Javascript za servere". Način izvršavanja jako je sličan izvršavanju Java koda.<br/>
 <div align="center">
 <img
 src="https://www.freecodecamp.org/news/content/images/2019/06/1_sYPllpcAZLHmpuQSRPuO0Q.png" />
 </div>
 
-Nećemo ulazit detaljnjije u izvedbu jer nije u okviru onog što se radi na ovom kolegiju, ali za one koje zanima ovdje je [izvor](https://www.freecodecamp.org/news/what-exactly-is-node-js-ae36e97449f5/).
+Nećemo ulaziti detaljnije u izvedbu jer nije u okviru onog što se radi na ovom kolegiju, ali za one koje zanima ovdje je [izvor](https://www.freecodecamp.org/news/what-exactly-is-node-js-ae36e97449f5/).
 
 ### NPM: Package manager
 
-Instalacija NodeJS-a je neophodna za rad sa modernim Javascriptom čak iako ne radimo serverske aplikacije. Jedan od razloga je *NPM*. NPM je **Node Package Manager**. To je program koji je dio NodeJS-a i dio je JS ekosustava, a njegov cilj je instalacija softverskih paketa i upravljanje stablom ovisnosi paketa (dependency tree) što brže i efikasnije. NPM se može pozvati iz komandnog prozora nakon instalacije NodeJS-a. Korsitit ćemo ga za instalirati GatsbyJS.
+Instalacija NodeJS-a je neophodna za rad s modernim Javascriptom čak iako ne radimo serverske aplikacije. Jedan od razloga je *NPM*. NPM je **Node Package Manager**. To je program koji je dio NodeJS-a i dio je JS ekosustava, a njegov cilj je instalacija softverskih paketa i upravljanje stablom ovisnosti paketa (dependency tree) što brže i efikasnije. NPM se može pozvati iz komandnog prozora nakon instalacije NodeJS-a. Koristit ćemo ga za instaliranje GatsbyJS.
 
 ### GatsbyJS: zašto i kako
 
 GatsbyJS je framework za ReactJS. Možemo reći da imamo framework koji se oslanja na framework što se može činiti kao ogroman overhead, ali cilj Gatsby-a je upravo olakšavanje izrade statičkih web stranica. GatsbyJS je "static site generator" uporabom ReactJS-a.
 
-"Static site" znači da imamo HTML + CSS + JS. Tri datoteke (ili više ako ih razbijemo na više djelova, ali to je samo estetika) koje možemo stavit na USB pa prebacit na neki web server ili podić na Apache ili na samo otvorit u web pretraživaću na računalu. Ispred sebe onda vidimo gotovu stranicu i to je to. Sa ReactJS-om, trebamo dignuti server koji će služiti ReactJS aplikaciju. Trebamo NodeJS i NPM za instalaciju svih paketa koje ReactJS koristi. Ne možemo to jednostavno prebacit na USB ili samo otvorit u pretraživaću. Stoga se za statične stranice ReactJS ne preporuča jer stvara ogroman overhead (preporuča se ručno pisanje HTML-a ili WordPress). GatsbyJS rješava ovaj problem na jednostavan način: piše se pojednostavljena verzija ReactJS-a (nema navigacije i routinga npr.) i onda kad smo gotovi, GatsbyJS će sav taj ReactJS kod pretvorit u klasični HTML + CSS + JS statični site.
+"Static site" znači da imamo HTML + CSS + JS. Tri datoteke (ili više ako ih razbijemo na više dijelova, ali to je samo estetika) koje možemo staviti na USB pa prebaciti na neki web server ili podići na Apache ili samo otvoriti u web pretraživaču na računalu. Ispred sebe onda vidimo gotovu stranicu i to je to. Sa ReactJS-om, trebamo dignuti server koji će služiti ReactJS aplikaciju. Trebamo NodeJS i NPM za instalaciju svih paketa koje ReactJS koristi. Ne možemo to jednostavno prebaciti na USB ili samo otvoriti u pretraživaču. Stoga se za statične stranice ReactJS ne preporuča jer stvara ogroman overhead (preporuča se ručno pisanje HTML-a ili WordPress). GatsbyJS rješava ovaj problem na jednostavan način: piše se pojednostavljena verzija ReactJS-a (nema navigacije i routinga npr.) i onda kad smo gotovi, GatsbyJS će sav taj ReactJS kod pretvoriti u klasični HTML + CSS + JS statični site.
 
 GatsbyJS premošćuje most između ReactJS-a i statičnih stranica.
 
@@ -44,7 +44,7 @@ U sljedećim poglavljima korak po korak ćemo instalirati sve potrebne alate za 
 
 #### Windows
 
-Za windows korisnike, potrebno je skinuti NodeJS instaler sa [službene stranice](https://nodejs.org/en/). Uvjek skidamo LTS verziju ("long term support"). Non-LTS verzije su **nešto kao** "beta" verzije.
+Za windows korisnike, potrebno je skinuti NodeJS instaler sa [službene stranice](https://nodejs.org/en/). Uvijek skidamo LTS verziju ("long term support"). Non-LTS verzije su **nešto kao** "beta" verzije.
 
 Nakon instalacije, možemo potvrditi da je sve prošlo u redu koristeći terminal:
 
@@ -55,7 +55,7 @@ $ npm -v
 6.10.3
 ```
 
-Ako neka od naredbi daje error umjesto verzije softvera instalacija nije prošla ureno. Za Windows, čest error je da se `node.exe` ne doda u *system path variable*. Simpotom je da se naredba "node" ne može pronaći. Problem je lako [riješiti](https://stackoverflow.com/questions/27864040/fixing-npm-path-in-windows-8-and-10).
+Ako neka od naredbi daje error umjesto verzije softvera instalacija nije prošla uredno. Za Windows, čest error je da se `node.exe` ne doda u *system path variable*. Simptom je da se naredba "node" ne može pronaći. Problem je lako [riješiti](https://stackoverflow.com/questions/27864040/fixing-npm-path-in-windows-8-and-10).
 
 #### Linux (Ubuntu/Debian)
 
@@ -67,7 +67,7 @@ $ sudo apt-get update
 $ sudo apt-get install nodejs
 ```
 
-Pathing bi trebao radit po defaultu.
+Pathing bi trebao raditi po defaultu.
 
 #### Arch based
 
@@ -79,7 +79,7 @@ $ sudo pacman -S nodejs
 
 #### WSL
 
-Ovisi o verziji Linuxa. Postoji probem sa pathingom kod instalacije NPM ako je NPM instaliran i na Windowsu. Zbog šugavog načina na koji WSL radi (oslanja se na Windwos registre) pokušat će pokrenut NPM sa Windowsa što neće proć. Može se koristiti [Yarn](https://classic.yarnpkg.com/en/docs/install/#debian-stable) ili se može samo unmountat `/mnt/c`. Također, [deinstalacija NodeJS-a u Windowsu i restart Linux shella riješava problem](https://github.com/microsoft/WSL/issues/3882) (ako se to može nazvati rješenjem).
+Ovisi o verziji Linuxa. Postoji problem sa pathingom kod instalacije NPM ako je NPM instaliran i na Windowsu. Zbog načina na koji WSL radi (oslanja se na Windwos registre) pokušat će pokrenuti NPM sa Windowsa što neće proći. Može se koristiti [Yarn](https://classic.yarnpkg.com/en/docs/install/#debian-stable) ili se može samo unmountat `/mnt/c`. Također, [deinstalacija NodeJS-a u Windowsu i restart Linux shella riješava problem](https://github.com/microsoft/WSL/issues/3882) (ako se to može nazvati rješenjem).
 
 ### GatsbyJS CLI
 
@@ -104,7 +104,7 @@ Koristeći sad instalirani CLI stvaramo novi projekt:
 
 `$ gatsby new moj-projekt`
 
-Proces će potrajati neko vrijeme. GatsbyCLI sad dohvaća sve potrebne pakete koristeći NPM ispod haube za rad sa ReactJS-om i naravno alate koji će taj ReactJS na kraju pretvoriti u HTML/CSS/JS. Kad ne bismo koristili GatsbyJS nego samo ReactJS, ovaj proces instalacije alata trebali bismo ponoviti na svakom serveru sa kojeg serviramo našu stranicu.
+Proces će potrajati neko vrijeme. GatsbyCLI sad dohvaća sve potrebne pakete koristeći NPM ispod haube za rad sa ReactJS-om i naravno alate koji će taj ReactJS na kraju pretvoriti u HTML/CSS/JS. Kad ne bismo koristili GatsbyJS nego samo ReactJS, ovaj proces instalacije alata trebali bismo ponoviti na svakom serveru s kojeg serviramo našu stranicu.
 
 Nakon nekog vremena vidjet ćemo sljedeću poruku:
 
@@ -128,7 +128,7 @@ Sada u svom browseru upišemo danu adresu:
 <div align="center">
   <img src="https://github.com/n00ne1mportant/HCI_2021/blob/intro-gatsby/Res/address_bar.png?raw=true"/>
 </div>
-Trebali bismo vidjet "Hello world" Gastby stranicu.</br>
+Trebali bismo vidjeti "Hello world" Gastby stranicu.</br>
 <div align="center">
   <img src="https://github.com/n00ne1mportant/HCI_2021/blob/intro-gatsby/Res/gatsbyHelloWorld.png?raw=true"/>
 </div>
@@ -162,11 +162,11 @@ Sve što vidimo automatski stvara Gastby alat. Većina tih foldera interno koris
 
 - src
 
-*.cache* folder je upravo što mu i naziv govori: *cache*. Niakd ga ne diramo, ali ponekad kad mjenjamo konfiguraciju projekta *.cache* će trebati izbrasat da se promjene primjene. Van toga nama je beskoristan.
+*.cache* folder je upravo što mu i naziv govori: *cache*. Nikad ga ne diramo, ali ponekad kad mijenjamo konfiguraciju projekta *.cache* će trebati izbrisati da se promjene primjene. Van toga nama je beskoristan.
 
-*public* folder sadrži radnu verziju statičke stranice u danom trenutku. Nikad ne trebamo gledat što se nalazi u njemu i nama nema nikakvu uporabu.
+*public* folder sadrži radnu verziju statičke stranice u danom trenutku. Nikad ne trebamo gledati što se nalazi u njemu i nama nema nikakvu uporabu.
 
-*node_modules* folder je ogroman. Postoji u svakom modernom JS projektu, a sadrži kod svih paketa koje smo dodali koristeći NPM ili u ovom slučaju, kod paketa koje je dodao GatsbyCLI. Tu se nalazi ReactJS kod, GatsbyJS kod i sve što njima treba za rad. Nikad ne trebamo ulazit u taj folder. Vratit ćemo se na njega kasnije
+*node_modules* folder je ogroman. Postoji u svakom modernom JS projektu, a sadrži kod svih paketa koje smo dodali koristeći NPM ili u ovom slučaju, kod paketa koje je dodao GatsbyCLI. Tu se nalazi ReactJS kod, GatsbyJS kod i sve što njima treba za rad. Nikad ne trebamo ulaziti u taj folder. Vratit ćemo se na njega kasnije
 
 *src* označava *source*. Ovo je jedini folder koji nas zanima. Sav naš kod ide u ovaj folder. Vratit ćemo se na njega kad budemo detaljnjije pregledavali strukturu koda u Gatsby projektima.
 
@@ -186,9 +186,9 @@ Osim njih imamo druge `gatsby-*.js` datoteke. One su dosta specifične te ih za 
 
 *.gitignore* je datoteka koja osigurava da *cache*, build files, *node_modules* logovi i slične stvari ne ulaze u git. Razlog je taj što ti podatci ne trebaju bit u gitu. Ne trebamo se zamarati tom datotekom, ona je unaprijed ispravno podešena. Detaljnije [ovdje](https://www.atlassian.com/git/tutorials/saving-changes/gitignore).
 
-*.pretierignore i .pretierrc* su datoteke koje sadrže postavke za [Prettier](prettier.io). Alat za formatiranje koda koji preporuča Gatsby. Ako ge ne želimo koristiti obe datoteke se mogu izbrisati.
+*.pretierignore i .pretierrc* su datoteke koje sadrže postavke za [Prettier](prettier.io). Alat za formatiranje koda koji preporuča Gatsby. Ako ga ne želimo koristiti obe datoteke se mogu izbrisati.
 
-*package.json* i *package.lock* sadrže popis paketa koji se koriste u projektu. *package.lock* se **ne** smije dirat ručno. On je autogenerated. *package.json* možemo mjenjati ako je to potrebno i ručno, ali pakete dodajemo i brišemo kroz NPM alat. *package.json* pokazuje što se nalazi u *node_modules* folderu. Ponekad paketi znaju "zapeti" i ostanu polu-instalirani. U tom slučaju potrebno je izbrisati *node_modules* folder i pokrenuti `npm i` da se napravi reinstalacija paketa. *lock* datoteka se pri tome ne dira.
+*package.json* i *package.lock* sadrže popis paketa koji se koriste u projektu. *package.lock* se **ne** smije dirati ručno. On je autogenerated. *package.json* možemo mijenjati ako je to potrebno i ručno, ali pakete dodajemo i brišemo kroz NPM alat. *package.json* pokazuje što se nalazi u *node_modules* folderu. Ponekad paketi znaju "zapeti" i ostanu polu-instalirani. U tom slučaju potrebno je izbrisati *node_modules* folder i pokrenuti `npm i` da se napravi reinstalacija paketa. *lock* datoteka se pri tome ne dira.
 
 *gatsby-config.js* je glavna datoteka za konfiguraciju Gatsbya. Dodavanje novih plug-ina, modula i ostala konfiguracija radi se kroz *gatsby-config.js*. Sve upute o tome se lako nađu na [službenim stranicama](https://www.gatsbyjs.org/docs/api-reference/).
 
@@ -198,4 +198,4 @@ Sad prelazimo sa nebitnih i manje bitnih stvari na bitne. Folder *src* sarži na
 <br/>
 ![srouce files](https://github.com/n00ne1mportant/HCI_2021/blob/intro-gatsby/Res/VSCode_src.png?raw=true)
 <br/>
-*components* sadrži sve naše ReactJS komponente koje ćemo definirat. *pages* sadrži stranice, poput */home /about /login* i sl. Vidimo da je većina koda u ovom floderu *js*. Unutar *pages* vidimo *index.js*. To je početna stranica. Detaljnije o samom kodu i promjenama koje ćemo napravit sljedi u sljedećim poglavljima.
+*components* sadrži sve naše ReactJS komponente koje ćemo definirati. *pages* sadrži stranice, poput */home /about /login* i sl. Vidimo da je većina koda u ovom floderu *js*. Unutar *pages* vidimo *index.js*. To je početna stranica. Detaljnije o samom kodu i promjenama koje ćemo napraviti slijedi u sljedećim poglavljima.
