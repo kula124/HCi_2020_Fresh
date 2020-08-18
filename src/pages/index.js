@@ -1,10 +1,9 @@
 import React from "react"
+import ContactBar from '../components/contactBar'
 
 const IndexPage = () => (
   <main>
-    <h1>Hi people</h1>
-    <p>Welcome to your new Gatsby site.</p>
-    <p>This is where we add content</p>
+    <ContactBar />
   </main>
 )
 
