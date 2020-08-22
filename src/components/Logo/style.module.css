@@ -1,0 +1,17 @@
+@import url(https://hr.allfont.net/allfont.css?fonts=great-vibes);
+
+.logo {
+    display: flex;
+    flex-flow: column;
+    width: fit-content;
+}
+
+.logoText {
+    font-family: "Great Vibes";
+    font-size: 52px;
+}
+
+.sub {
+    text-align: center;
+    font-size: 14px;
+}
