@@ -1,0 +1,18 @@
+@import url(https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap);
+
+.logo {
+    display: flex;
+    flex-flow: column;
+    height: 52px;
+    width: fit-content;
+}
+
+.logoText {
+    font-family: "Great Vibes";
+    font-size: 52px;
+}
+
+.sub {
+    text-align: center;
+    font-size: 14px;
+}
