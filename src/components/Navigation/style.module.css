@@ -1,0 +1,5 @@
+.navigation {
+    height: 52px;
+    display: flex;
+    align-items: center;
+}
