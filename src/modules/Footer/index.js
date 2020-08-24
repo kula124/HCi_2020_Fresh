@@ -1,7 +1,7 @@
 import React from 'react'
 import styles from './style.module.css'
 
-import NavigationBar from '../NavigationBar'
+import NavigationBar from '../../components/NavigationBar'
 
 const Footer = () => (
   <footer className={styles.footer}>
