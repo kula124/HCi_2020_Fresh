@@ -24,21 +24,3 @@
 .phone {
     margin: 11px 0;
 }
-
-.navigation {
-    padding-top: 15px;
-    list-style: none;
-    display: flex;
-    text-transform: uppercase;
-}
-
-.navigation li {
-    margin: 0 10px;
-    font-size: 16px;
-    height: fit-content;
-}
-
-.navigation li:hover {
-    border-bottom: 1px solid white;
-    cursor: pointer;
-}
