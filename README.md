@@ -1,784 +1,979 @@
 # Uvod
-  U ovoj vježbi ćemo napraviti navigaciju i definirati **page layout**. Također, napravit ćemo i footer za stranicu. Navigaciju ćemo realizirati koristeći **JavaScript array**.
+  U ovim vježbama nastavit ćemo gdje smo stali ranije i napravit ćemo malo refaktoriranja koda. Promijenit ćemo kompoziciju komponenti koju smo napisali zadnji put što će nam dati više modularan i čist raspored komponenti i koda. Također, održavanje takvog koda i snalaženje u njemu je puno lakše.
  
-# Segmenti stranice
-U ovoj vježbi imamo više segmenata stranice za obraditi. Krenimo s težim: Navigacijski Header.
-## Navigacijski header
-Navigacijski header sastoji se od:
-- Loga stranice
-- Navigacije koja se sastoji od
-  - Navigacijske trake
-  - Combobox (Dropdown) menija
+  Promjene koje ćemo napraviti tiču se spajanja više cjelina u jednu koju ćemo zvati **modul**. Modul je veći logički segment *web*-stranice. Također, pokazat ćemo kako radi *composite design pattern* kad želimo koristiti istu komponentu na više mjesta u dizajnu uz male razlike.
  
-Logo se sastoji od dva obična spana s fancy fontom.
- 
-Za prikaz navigacijskih tabova u navigacijskoj traci koristit ćemo **JS array**.
-ReactJS dopušta renderiranje (dinamičkih) nizova elemenata. To je jako korisno za prikaz listi poput popisa svih korisnika, liste artikala u web shopu i slično, a u našem primjeru, navigacijske trake.
- 
-![header components](./readmeRess/header2.png)<br/>
-![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) Navigacijska traka <br/>
-![#8af3ff](https://via.placeholder.com/15/48ff00/000000?text=+) Niz navigacijskih tabova
- 
-Navigacijska traka bit će *container* za navigacijske tabove koji su njena "djeca". Sjetimo se [vježbe 1](https://github.com/n00ne1mportant/HCI_2021/tree/intro-react#verticallistcontainer) i HoC koponenti. Cijeli kod je [ovdje](https://jsfiddle.net/6fe7aj4u/27/). Ali vidimo da navigacijski tabovi nisu samo stringovi. Izgledaju kao botuni i imaju hover animacije. Možemo reći i da su oni male komponente koje omotavaju string. JS ima zgodnu funkciju koja stvara niz React komponenti iz niza stringova, a to je **.map()**.
-
-# ReactJS concept: array transform with .map() <a name="map"></a>
-`array.map()` jedna je od najbitnijih funkcija u JS-u i programiranju općenito. Gotovo svaki moderni jezik ima svoju izvedbu `array.map()` i `array.reduce()` funkcije koju ćemo također spomenuti. Ono što onda radi je jako jednostavno, ali moćno: uzima niz, transformira ga u novi niz i vraća taj novi niz. Pri tome se niz nad kojim se poziva `map()` NE mijenja, nego se stvara nova varijabla (immutable variable, sjetimo se [vježbe 0]).
- 
-Što se u nizu transformira? Ovisi što želimo. Koristi se `callback` funkcija koja se poziva nad svakim elementom niza, a vraća **novi** element niza. Dakle:
- 
-array.map():sviElementiNiza => elementNiza => callback(elementNiza) => noviElementNiza
- 
-Primjer je tisuću riječi. Imamo niz od 5 brojeva i želimo niz njihovih kvadrata:
-```javascript
-const numbers = [1,3,5,8,10]
-const transformFunction = number => number*number;
-const squares = numbers.map(transformFunction)
-console.log(squares)
-// [1, 9, 25, 64, 100]
-```
-Ili kako se to češće piše koristeći anonimne funkcije:
-```javascript
-const numbers = [1,3,5,8,10]
-const squares = numbers.map(el => el*el)
-console.log(squares)
-// [1, 9, 25, 64, 100]
-```
-Anonimna funkcija nas štedi definicije i imenovanja funkcije kao u prvom primjeru.
-Analizirajmo `.map()` funkciju.
- 
-`.map()` funkcija prima funkciju koju ona naziva `callback`. `callback` funkcija prima trenutni element niza nad kojim onda vrši transformaciju. Bitno je da `callback` funkcija vrati vrijednost sa `return` ili u našem primjeru, imamo one-liner koji podrazumijeva `return` (vježba 0). `callback` može vratiti bilo što: objekt, novi niz (pa bismo imali niz nizova), nešto nasumično ili, ono što je nama zanimljivo, **React komponentu**. Možemo koristiti `map()` da od niza stringova stvorimo niz React komponenti. Pogledajmo sljedeća dva primjera:
-```javascript
-const lowerCaseNames = ["mate", "ante", "jure"]
-const uppercCaseNames = lowerCaseNames.map(el => el.toUpperCase())
-console.log(ucNames)
-// ["MATE", "ANTE", "JURE"]
-```
-Dosta jednostavno. Dodajmo malo logike: ako je element paran broj dijelimo ga sa 2, ako je neparan množimo ga sa 2. Ako je string, ide u upper case inače vraćamo null: 
-```javascript
-const mixedArray = [10, "huehue", 3, "mate", "not a string", 7, true, {}]
-const transformedMixedArray = mixedArray.map(el => {
-  if (typeof el === "string")
-    return el.toUpperCase()
-  if (typeof el === "number"){
-    // je li djeljiv s dva?
-    if (el % 2 === 0)
-      //paran
-      return el / 2
-    else // neparan
-      return el * 2
-  }
-  else // svi ostali tipovi (bool/object/array/func...)
-  return null
-  })
-console.log(transformedMixedArray)
-  // [5, "HUEHUE", 6, "MATE", "NOT A STRING", 14, null, null]
-```
-Ovaj malo kompleksni primjer pokazuje da su mogućnosti transformacija unutar `map()` funkcije dosta široke. Ali ovo što smo vidjeli dosad je samo JavaScript, znači ništa novo. Pogledajmo primjenu u Reactu:
- 
-```jsx
-import React from 'react'
-const names = ["Joe", "Jack", "Jess", "James"]
-const ListOfNames = props => (
-  <ul>
-    {names.map(el => {
-      return (
-        <li>
-          {el.toUpperCase()}
-        </li>
-      )}
-    )}
-  </ul>
-)
-```
-`{}` zagrade unutar React koda omogućuju poziv JavaScript funkcija kako bismo ih inače pozivali. Isto vrijedi i unutar `<li></li>` koji su već unutar `{}`, znači moguće je ugnježđivanje. 
- 
-Što vraća ovaj kod? Pokušajte pretpostaviti i provjerite [ovdje](https://jsfiddle.net/dwsgb0hu/).
- 
-# Planiranje: Navigacijski header <a name="plan"></a>
-Sad planiramo što ćemo raditi. Za početak se fokusiramo na *Navigacijski header*. Pokušajmo precizno odgovoriti od čega se sastoji, a zatim to od čega se sastoji podijeliti na komponente. Onda ćemo svaku od tih komponenti dijeliti dalje dok ne dođemo do obilnih HTML elemenata. Navigacijski header je top level komponenta. Dodijelit ćemo joj ime `<NavigationHeader />` i sadržavat će ostale komponente po hijerarhiji.
- 
-## Kompozicija komponenti
-Navigacijski header se sastoji od 2 child komponente:
-- Loga
-- Navigacije (container)
- 
-![header components](./readmeRess/header3.png) <br/>
-![#31f7f7](https://via.placeholder.com/15/31f7f7/000000?text=+) Logo  <br/>
-![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) Navigacija <br/>
-### Logo
-Logo je zapravo samo tekst u danom fontu, dakle nije slika. Radi se o 2 `<span>` elementa. Realizirat ćemo ga unutar `<section>` taga i koristit ćemo `fex-flow: column` za stvaranje stupca. Najbitni dio je ubaciti potreban font.<br/>
+  Na kraju, dodat ćemo novi sadržaj na stranicu. Dodat ćemo sadržaj sa slikama i tekstom. Koristit ćemo se `Gatsby-Image` API-em koji nam je dostupan u projektu.
+## Segment stranice
+  Segment stranice koji pišemo je naslovna slika i dva paragrafa u tijelu stranice.
   <p align="center">
-  <img src="./readmeRess/logoComp.png" />
+    <img src="./readmeRess/titleImage.png">
+  </p>
+ 
+  Taj sadržaj dolazi između `<NavigationHeader/>` i `<Footer/>` komponenti. 
+ 
+## React concept
+  Tri koncepta koja ćemo proći u ovim vježbama bit će **Layout**, **Lazy loading** i **Modul** komponente.
+  ### Layout
+  *Page layout* je koncept u *web*-developmentu kojim se definira nepromjenjivi format stranice, a cilj je uniformnost kod multi-page stranica. Najbolji primjer za to su upravo navigacija i footer. Kod *web*-aplikacija s više stranica u navigaciji želimo zadržati dio stanice isti, a dio mijenjati. U našem primjeru, footer ostaje isti kod svake stranice. Navigacijska traka također, ali se mijenja trenutno posjećena stranica. Sadržaj između headera i footera se u potpunosti mijenja ovisno o tome na kojoj smo stranici.<br/>
+  ![layout](./readmeRess/layout.png)
+  <br/>
+ 
+  ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) Layout: ponavlja se u svakoj stranici <br/>
+  ![#8af3ff](https://via.placeholder.com/15/8af3ff/000000?text=+) Sadržaj stranice: mijenja se navigacijom (primijetimo strelicu)
+ 
+  Prije nego možemo napraviti ovakav *layout* moramo imati navigacijsku traku i footer. To smo napravili u prošlim vježbama.
+  ### Moduli
+  Ako gledamo komponente hijerarhijski vidimo da nisu sve komponente na istoj razini. Neke komponente poput `ContactBar` nemaju nijednu drugu komponentu unutar sebe, samo HTML. Komponente kao što je `NavigationHeader` su puno složenije. Čak možemo reći da predstavljaju zaokruženu logičku cjelinu. `NavigationHeader` i `Footer` su dvije komponente koje samostalno predstavljaju cijeli segment *web*-stranice. Takve komponente zovemo **moduli**.
+ 
+  Ne postoji striktna definicija *modula* i ne koriste se uvijek. Podjela na module može biti više. Na primjer, `ContactBar` može biti sam svoj modul, ili ga se može dodati u `NaigationHeader` pa skupa s njim tvori modul.
+  <p align="center">
+    <img src="./readmeRess/modulesq.png">
+  </p>
+ 
+  U nastavku spojit ćemo `NavigationHeader` i `ContactBar` u jedan modul.
+ 
+  ### Gatbsy-Image (lazy loading)
+ *Lazy-Loading* je popularan koncept u *web-developmentu*, a radi se o učitavanju stranice segment po segment dok se ona koristi. Cilj je smanjiti početno učitavanje tako što će se učitati samo ono što će korisnik vidjeti. Dok korisnik gleda učitani sadržaj, ostatak sadržaja se učitava. Ovo se radi na način da nema *pop-in* efekta koji se dogodi kad se nešto učita i novi sadržaj "uskoči" pa se sav sadržaj i raspored stranice naglo poremeti. Umjesto toga vidimo dio sadržaja i *loading* animacije posvuda po stranici dok se sadržaj učitava. Kad se sve učita animacije se zamjenu sadržajem i nema smetnji.
+ 
+ Kod slika ovo je posebno zanimljivo jer slike traže duže učitavanje i mogu biti dosta velike. Njihov *pop-in* zato može dosta poremetiti stranicu i loše utjecati na iskustvo korisnika. Slika se *lazy-loada* na način da se učitava zamućena pa se postepeno izbistri ili se učita *loading placeholder* na njeno mjesto i samo se zamijeni slikom kad je spremna. Postoji i dosta varijanti na temu, ali cilj je isti: bolje korisničko iskustvo.
+ 
+ Pisanje koda ručno za učitavanje slika na ovaj način može biti komplicirano. *Gatsby* zato nudi svoj API u vidu GraphQL API-a za dohvaćanje slika i gotove komponente za njeno optimiranje i prilagođavanje stranici. Unutar ove vježbe nećemo previše ulaziti u GraphQL jer on sam može biti kolegij za sebe, ali objasnit ćemo kako se radi s optimiziranim slikama unutar *Gatsby* API-a. 
+ 
+## Planiranje komponenti
+Za razliku od prije, komponente u ovoj vježbi su dosta jednostavnije. Međutim, mijenjamo raspored postojećih komponenti:
+  - Dodajemo `ContactBar` u `NavigationHeader`
+  - Dodajemo `NavigationBar` u `Footer`
+  - Dodajemo `NavigationHeader` i `Footer` u HoC komponentu: `Layout`
+  - U `pages/index.js` uvozimo `Layout` umjesto `NavigationHeader` i `Footer`
+Nova kompozicija izgledat će ovako:
+<p align="center">
+  <img src="./readmeRess/newComposition.png">
 </p>
  
-### Navigacija (container)
-Navigacijska traka se sastoji od 2 dijela:
-- Navigacijska traka
-- Combo-Box (dropdown)
- 
-Budući da je *Navigacija* samo container, rastavimo je dublje:
-- Navigacija (container)
-  - Navigacijska traka
-    - Navigacijski tabovi `<li>`
-  - Combobox
- 
-Container ćemo realizirati kao `<section>` ili `<div>` (zapravo nema razlike osim u [semantici](https://medium.com/design-code-repository/html-elements-section-vs-div-vs-article-a8c34e6548cf)). Navigacijski tabovi nalazit će se unutar **liste**. Lista može biti unutar `<nav>` ili obični `<ul>`. Semantički, `<nav>` je točniji, ali tehnički je isto. Container će sadržavati još i *combobox*. *Combobox* ćemo mockat za sad (bit će div s borderom), ubacit ćemo pravi *combobox* kasnije. Dakle:<br/>
-![Navigation bar](./readmeRess/nav1.png)<br/>
-![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) Container <br/>
-![#15/48ff00](https://via.placeholder.com/15/48ff00/000000?text=+) Navigacijska traka <br/>
-![#31f7f7](https://via.placeholder.com/15/31f7f7/000000?text=+) Combobox<br/>
-Navigacijskom containeru ćemo dodijeliti komponentu `<Navigation />`.
-### Combobox
-Combobox će samo biti `<span>` s borderom. U daljnjim vježbama dat ćemo mu funkcionalnost. Dodijelit ćemo mu komponentu `<Combobox />`.
-### Navigacijski tabovi
-Navigacijski tabovi su stilizirani `<li>` elementi. Ne trebaju komponentu.
- 
-## Sadržaj git commitova <a name="toc"></a>
-Svaki git commit kao i prije je korak prema rješenju. Branch se sastoji od sljedećih commitova:
-- [**Commit 1: adding NavigationHeader**](#c1)
-  - Stvaramo praznu NavigationHeader komponentu i dodajemo je u components
-  - Importamo prazan NavigationHeader u `pages/index.js`
-  - Sada možemo stvoriti potkomponente NavigationHeadera i imporatat ih
-- [**Commit 2: adding Logo**](#c2)
-  - Stvaramo `<Logo />` komponentu
-  - Importamo je u NavigationHeader
-- [**Commit 3: adding Navigation**](#c3)
-  - Mijenjamo raspored stvaranja komponente
-  - Stvaramo prazne potkomponente:
-    - `<NavigationBar />`
-    - `<Combobox />`
-  - Stvaramo `<Navigation />` i radimo import
-  - Radimo import `<Navigation />` u `<NavigationHeader />`
-- [**Commit 4: adding NavigationBar part 1**](#c4)
-  - Stvaramo array navigacijskih tabova kao `<span>`
-  - Dodajemo CSS za navigacijske tabove
-- [**Commit 5: refactor tabs to use map()**](#c5)
-  - Koristimo `map()` funkciju
-  - Dodajemo logiku za active
-  - Dodajemo prop za active
-- [**Commit 6: refactor to use props for .active**](#c6)
-  - Dodajemo prop "activeTag"
-  - Provjeravamo prop "activeTag"
-  - Prosljeđujemo props "activeTag" iz `pages/index.js`
-- [**Commit 7: adding Combobox**](#c7)
-  - Dodajemo kod i CSS za Combobox
-  - Dodajemo stilove za Navigation
-  - Dodajemo stilove za NavigationHeader
-- [**Commit 8: adding footer**](#c8)
-  - Stvaranje `<Footer />` komponente
-  - Dodavanje u `pages/index.js`
-  - [**Composition patern vs Inheritance pattern**](#c81)
- 
-# Implementacija
-Implementiramo sljedeće stablo komponenti:
+Sad kad smo to riješili pišemo nove komponente u `Layout`. Nove komponente se sastoje od dvije top komponente gdje se svaka sastoji od još dvije potkomponente:
+  - `<PageTitle />`
+    - `<TitleImage />`
+    - `<InquiryBlock />`
+  - `<PageContent />`
+    - `<ImageParagraph />` x 2
  
 <p align="center">
-  <img src="./readmeRess/compositionFlowChart.png">
+  <img src="./readmeRess/vj4Composition.png">
 </p>
  
-## Commit 1: adding NavigationHeader <a name="c1"></a>
-- Stvaramo praznu NavigationHeader komponentu i dodajemo je u components
-- Importamo prazan NavigationHeader u `pages/index.js`
+### Kompozicija
+Puna kompozicija komponenti s `layout` HoC-om.
+<p align="center">
+  <img src="./readmeRess/a.png" />
+</p>
  
-> Komentar: postoje dva načina organiziranja komponenti u Reactu. Prvi je stvaranje foldera za komponentu i `index.js` datoteke unutar. I tako za svaku komponentu. Drugi način je bez stvaranja foldera u `src/components` samo dodati `<ime>.js` i isto tako za css `<ime>.module.css`. Nema nikakve razlike osim u estetici. Ja preferiram prvi način jer mi se sviđa vidjeti foldere unutar `components`, ali naravno nije to obavezno niti "bolje" od drugog načina.
+## Sadržaj git commitova <a name="tocc"></a>
+  - [**Commit 1: Adding ContactBar to NavigationHeader**](#c1)
+    - Import `ContactBar` u `NavigationHeader`
+    - Dodamo `ContactBar` u kod
+    - Izbrišemo `ContactBar` iz `pages/index.js`
+  - [**Commit 2: Adding NavigationBar to Footer**](#c2)
+    - Izoliranje `navTabs` varijable
+    - Uvoz `NavigationBar` komponente
+    - Dodavanje `useThisStyle` varijable
+    - CSS magija
+  - [**Commit 3: Creating Layout**](#c3)
+  - [**Commit 4: Creating Modules**](#c4)
+  - [**Commit 5: Creating TitlePage**](#c5)
+    - Stvaramo prazne komponente `<TitileImage />` i `<InquiryBlock>`
+    - Stvaramo `<TitlePage>` i radimo import
+    - Dodamo ga u `layout`
+  - [**Commit 6: Creating TitleImage**](#c6)
+    - index.js
+    - style.module.css
+  - [**Commit 7: Creating InquiryBlock**](#c7)
+      - index.js
+      - style.module.css
+  - [**Commit 8: Creating PageContent**](#c8)
+      - index.js
+      - style.module.css
+  - [**Commit 9: Creating ImageParagraph**](#c9)
+      - Kako radi gatby-image
+      - Stvaranje `<Image />` komponenti
+      - Import i stvaranje `ImageParagraph` komponente
+      - Reverse porp
  
-U `components` dodamo folder `NavigationHeader` (ili datoteku `NavigationHeader.js` ako pratimo drugi način). U njemu stvorimo `index.js` i `style.module.css` kao inače.
+### Commit 1: Adding ContactBar to NavigationHeader <a name="c1"></a>
+  - Import `ContactBar` u `NavigationHeader`
+  - Dodamo `ContactBar` u kod
+  - Izbrišemo `ContactBar` iz `pages/index.js`
+ 
+Prebacivanje `ContactBar` komponente je jednostavno. Idemo u `NavigationHeader` i dodajemo `import`:
 ```jsx
 import React from 'react'
-
+ 
+import Logo from '../Logo'
+import Navigation from '../Navigation'
+import ContactBar from '../contactBar'
+ 
 import styles from './style.module.css'
-
-const NavigationHeader = () => (
-  <section className={styles.navigationHeader}>
-  </section>
+ 
+const NavigationHeader = ({activeTab}) => (
+    <section className={styles.navigationHeader}>
+        <ContactBar />
+        <Logo />
+        <Navigation activeTab={activeTab} />
+    </section>
 )
+ 
 export default NavigationHeader
 ```
-i CSS:
-```css
-.navigationHeader {
-  height: 115px;
-  display: flex;
-  justify-content: space-between;
-}
+Ovo daje sljedeći rezultat:
+<p align="center">
+  <img src="./readmeRess/vj4sc2.png" />
+</p>
+ 
+Očito, to nije ono što želimo. Ovaj rezultat je očekivan ako `<ContactBar/>` ubacimo **unutar** `<section>` komponente. Budući da je na `<section>` u CSS-u definiran *row flex* logično je da će on dodati i `<ContactBar/>` u svoj redak. To je ono što vidimo.
+ 
+Na svu sreću, ne trebamo ništa posebno mijenjati, samo raspored komponenti. Želimo da `ContactBar` bude **sibling** za `<section>`, ne **child**. Znači ovo:
+```jsx
+const NavigationHeader = ({activeTab}) => (
+  <ContactBar />
+  <section className={styles.navigationHeader}>
+    <Logo />
+    <Navigation activeTab={activeTab} />
+  </section>
+)
 ```
-Sad dodajmo `NavigationHeader` u `pages/index.js`.
+Ovaj kod daje error... React komponenta **NE SMIJE** vratiti **sibling** kompoziciju, samo **parent => child**. Možemo dodati jedan `<div></div>` oko svega i rješavamo problem. Međutim, React nudi rješenje i za to: **React Fragment**. Posebni prazan tag `<></>` za omotavanje *sibling* komponenti:
+```jsx
+const NavigationHeader = ({activeTab}) => (
+  <>
+    <ContactBar />
+    <section className={styles.navigationHeader}>
+      <Logo />
+      <Navigation activeTab={activeTab} />
+    </section>
+  </>
+)
+```
+Ovo će dati željeni rezultat, ali će se `ContactBar` pojaviti duplo. To je ok, moramo ga izbrisati iz `pages/index.js`. Napravimo sad to:
 ```jsx
 import React from "react"
-
-import ContactBar from '../components/contactBar'
+ 
 import NavigationHeader from '../components/NavigationHeader'
-
+import Footer from '../components/Footer'
+ 
 const IndexPage = () => (
   <main>
-   <ContactBar />
-   <NavigationHeader />
+    <NavigationHeader activeTab = 'Home' />
+    <Footer />
   </main>
 )
-
+ 
 export default IndexPage
 ```
-Budući da smo definirali samo container, nećemo ništa novo vidjeti na`localhost` serveru.
-
-Možemo commitat:
+> Bitno: React NE MOŽE vratiti više od jednog element paralelno. Može vratiti ugniježđene elemente (parent=>child). **React Fragment** je rješenje ako moramo vratiti više elemenata paralelno.
+ 
 ```bash
 $ git add .
-$ git commit -m "Adding NavigationHeader"
+$ git commit -m "Adding ContactBar to NavigationHeader"
 ```
-[Sadržaj git commitova](#toc)
+[Sadržaj commitova](#tocc)
+### Commit 2: Adding NavigationBar to Footer <a name="c2"></a>
+U prošlim vježbama smo rekli da rješenje navigacije u `Footeru` nije dobro. Problem je ponavljanje što je nešto što treba izbjegavati ([DRY](https://dzone.com/articles/software-design-principles-dry-and-kiss) princip).
  
-## Commit 2: adding Logo <a name="c2"></a>
-- Stvaramo `<Logo />` komponentu
-- Importamo je u NavigationHeader
+Riješit ćemo ovaj problem iz 4 koraka.
+- Izoliranje `navTabs` varijable
+- Uvoz `NavigationBar` komponente
+- Dodavanje `useThisStyle` varijable
+- CSS magija
  
-Stvorimo Logo komponentu unutar `components`. Prema opisu od prije, Logo je `<section>` s dva `<span>` elementa.
+Izolirajmo `navTabs`. Stvorit ćemo folder i varijablu `src/constants/const.js`
+Dodajmo sljedeću liniju unutar:
+```jsx
+export const navs = ['Home', 'Accommodation', 'Photo Gallery', 'Contact']
+```
+Također, brišemo `navTabs` definiciju u `NavigationBar`. Sad radimo import ove varijable unutar `NavigationBar`:
+```jsx
+// src/components/NavigationBar/index.js
+import React from 'react'
+import { navTabs } from '../../constants/const'
+import styles from './style.module.css'
+```
+Ovo je error. Naziv koji smo dali u `constants/const.js` je `navs`. Znači moramo mijenjati `navTabs.map()` u `navs.map()` i import u `import { navs } from '../../constants/const'`
+ 
+Postoji bolji način. Sjećamo se `as` rječice? Probajmo ovo:<br/>
+`import { navs as navTabs } from '../../constants/const'`
+```jsx
+import React from 'react'
+import { navs as navTabs } from '../../constants/const'
+import styles from './style.module.css'
+ 
+const NavigationBar = ({ activeTab }) => (
+    <nav className={styles.navigationBar}>
+        {navTabs.map(tab => <li className={tab=== activeTab ? styles.active : ''}>
+            {tab}</li>
+        )}
+    </nav>
+)
+ 
+export default NavigationBar
+```
+Naravno mogli smo jednostavno dati ime `navTabs` u `const.js`, ali želio sam pokazati kako se koristi `as`. 
+ 
+Napravimo istu stvar u `Footer` komponenti.
 ```jsx
 import React from 'react'
 import styles from './style.module.css'
-
-const Logo = () => (
-  <section className={styles.logo}>
-    <span className={styles.logoText}>Villa Oliva Verde</span>
-    <span className={styles.sub}>ISTRA-CROATIA</span>
+ 
+import {navs as navTabs} from '../../constants/const' // <==
+ 
+const Footer = () => (
+  <footer className={styles.footer}>
+    <ul className={styles.address}>
+      ...
+      ...
+      <ul className={styles.navigation}>
+        {navTabs.map(tab =>
+          <li>{tab}</li>)
+        }
+      </ul>
+    </ul>
+  </footer>
+)
+```
+Ok, ovo rješenje je bolje nego ono prije jer ne kopiramo varijablu, ali nije idealno. Idealno bi bilo izbjeći i ovaj `map()` jer ga imamo u `NavigationBar`. Želimo iskoristiti `NavigationBar` i reći mu da bude crn s bijelim slovima. Također, ne želimo `active`. Kad god želimo nešto reći komponenti koristimo `props`. Sad ćemo izbaciti `nav` import i `<ul>map()</ul>` i dovesti `NavigationBar`.
+```jsx
+import React from 'react'
+import styles from './style.module.css'
+ 
+import NavigationBar from '../NavigationBar'
+ 
+const Footer = () => (
+  <footer className={styles.footer}>
+      <ul className={styles.address}>
+          <li className={styles.title}>
+              VILA OLIVA VERDE
+          </li>
+          <li>Štrped 24</li>
+          <li>521000 Vinkuran</li>
+          <li className={styles.phone}>
+              +385 99 11223344
+          </li>
+          <li>example@email.com</li>
+      </ul>
+      <NavigationBar />
+  </footer>
+)
+ 
+export default Footer
+```
+<p align="center">
+  <img src="./readmeRess/vj4sc3.png" />
+</p>
+ 
+Nije dobro. Ali to je ok. Dodajmo prop u `<NaviagtionBar />` koji ćemo nazvati `useThisStyle`<br/>
+`<NavigationBar useThisStyle = "footer"/>`<br/>
+Neće se promijeniti ništa jer moramo dodati logiku u `NavigationBar`. Ono što želimo je da komponenta koristi `className` koji joj dođe kroz `useThisStyle` prop. Trenutno koristi `styles.navigationBar`. 
+Ako to zamijenimo sa `styles[useThisStyle]` je li problem riješen?
+ 
+Ne. Mi želimo koristiti `.footer` klasu u `Footer` komponenti. U `NavigationHeader` želimo ostaviti `styles.navigationBar`. Ovo je jednostavni `if` problem. Ako je poslan `useThisStyle` koristi njega, ako nije onda `.navigtionBar`. JS ima `default param` funkcionalnost. Realizira se pomoću ili operatora (`||`):
+```jsx
+// components/NavigationBar/index.js
+...
+const NavigationBar = ({ activeTab, useThisStyle }) => (
+    <nav className={styles[useThisStyle || 'navigationBar']}>
+        {navTabs.map(tab => <li className={tab=== activeTab ? styles.active : ''}>
+            {tab}</li>
+        )}
+    </nav>
+)
+```
+Napredak!
+<p align="center">
+  <img src="./readmeRess/vj4sc4.png">
+</p>
+ 
+Sad samo treba dodati novu klasu u CSS, a ta klasa je `.footer` (to je ono što šaljemo kao prop u `useThisStyle`). Ta klasa je praktički ono što smo koristili u `Footer` komponenti prije. Novi `NavigationBar` CSS:
+```css
+.navigationBar {
+    display: flex;
+    justify-content: space-evenly;
+    flex-flow: row;
+    width: 480px;
+}
+ 
+.navigationBar li {
+    padding: 14px 15px;
+    list-style: none;
+    width: fit-content;
+    font-size: 14px;
+    line-height: 22px;
+    text-transform: uppercase;
+    color: #555
+}
+.navigationBar li:hover {
+    border-bottom: 2px solid darkgray;
+    cursor: pointer;
+}
+ 
+.navigationBar .active, .navigationBar .active:hover{
+    border-bottom: 2px solid black;
+}
+ 
+.footer {
+    margin: 30px;
+    list-style: none;
+    display: flex;
+    text-transform: uppercase;
+}
+ 
+.footer li {
+    margin: 0 25px;
+    font-size: 16px;
+    height: fit-content;
+}
+ 
+.footer li:hover {
+    border-bottom: 1px solid white;
+    cursor: pointer;
+}
+```
+Iz `Footer` CSS-a izbrišemo sve `.navigation` definicije.
+ 
+To je to. Ovo što smo upravo napravili je jedan od načina primjene **composition** patterna u Reactu.
+ 
+Commitajmo
+> Od sad pa nadalje pretpostavljam da znamo commitat. Broj datoteka u ovom commitu je 5. Ako je sve u redu, možemo nastaviti
+ 
+[Sadržaj commitova](#tocc)
+### Commit 3: Creating Layout <a name="c3"></a>
+Ovo će biti kratak commit. Stvaramo novi folder: `src/layouts` i dodajemo datoteku `headerFooter.js`. Razlog zbog kojeg stvaramo folder je taj što teoretski na stranici možemo imati više layouta. Čak i layout unutar layouta. Iako mi imamo samo jedan, želio bih pokazati kako struktura projekta može izgledati kod većih *gatsby* aplikacija.
+ 
+U taj file dodajemo `NavigationHeader` i `Footer`. Između njih šaljemo `children` prop. To je posebni prop koji je referenca na elemente koji se nalaze unutar taga. Na primjer, za:
+```jsx
+<ul>
+  <li>Hi 1</li>
+  <li>Hi 2</li>
+  <li>Hi 3</li>
+</ul>
+```
+Svi `<li>` elementi su `children` prop za `<ul>`, a njihov međusobni odnos je "sibling".
+Manje priče, više koda:
+```jsx
+// /src/layouts/headerFooter.js
+import React from 'react'
+import NavigationHeader from '../components/NavigationHeader'
+import Footer from '../components/Footer'
+ 
+const HeaderFooterLayout = ({children, activeTab}) => (
+  <>
+    <NavigationHeader activeTab={activeTab} />
+      {children}
+    <Footer />
+  </>
+)
+ 
+export default HeaderFooterLayout
+```
+Sad vidimo da kad budemo slali sljedeće komponente po planu, slat ćemo ih kao `children` u `layout`. 
+ 
+Idemo u `pages/index.js` primijeniti novi pristup:
+```jsx
+import React from "react"
+ 
+import HeaderFooterLayout from "../layouts/headerFooter"
+ 
+const IndexPage = () => (
+  <HeaderFooterLayout activeTab="Home">
+    {/* Body components here! */}
+  </HeaderFooterLayout>
+)
+ 
+export default IndexPage
+```
+Možda se sjećate da je postojao `layout` file na početku projekta koji je došao skupa s *gatsbyem* ? Taj `layout.js` ima istu svrhu kao i ovaj kojeg smo mi napravili. Razlika je samo u tome što ubaciva u stranicu. 
+> Možemo commit: 2 filea
+ 
+[Sadržaj commitova](#tocc)
+### Commit 4: Creating Modules <a name="c4"></a>
+I ovo će biti kratak commit. Stvorit ćemo `src/modules` folder gdje će ići komponente za koje smatramo da su *Moduli* cijele stranice. Po mom skromnom mišljenju to su:
+  - NavigationHeader
+  - Footer
+> Modul možemo definirati kao komponente koje se pojavljuju u `pages/*.js` datotekama.
+ 
+Maknut ćemo cijele `/components/NavigationHeader` i `/components/Footer` foldere u `/modules`. Ovo će slomiti aplikaciju jer layout više ne može dohvatiti te komponente. Samo ćemo ispraviti *import path*:
+```jsx
+// layouts/headerFooter.js
+import React from 'react'
+import NavigationHeader from '../modules/NavigationHeader'
+import Footer from '../modules/Footer'
+...
+```
+Možemo commitat
+> 9 fileova => 5 filieova kad se doda u staging <br/>
+> ([D]elte + [C]reate = [R]ecreate)
+ 
+[Sadržaj commitova](#tocc)
+### Commit 5: Creating TitlePage <a name="c5"></a>
+  - Stvaramo prazne komponente `<TitileImage />` i `<InquiryBlock>`
+  - Stvararamo `<TitlePage>` i radimo import
+  - Dodamo ga u `layout`
+ 
+Kao inače kad stvaramo novu složenu komponentu. Razlika je u tome što će `<TitlePage />` ići u module, a ostale dvije komponente u `components`
+ 
+```jsx
+// /components/TitleImage/index.js
+import React from 'react'
+ 
+import styles from './style.module.css'
+ 
+const TitleImage = () => (
+    <section className={styles.titleImage}>
+    </section>
+)
+ 
+export default TitleImage
+```
+```jsx
+// /components/InquiryBlock/index.js
+import React from 'react'
+ 
+import styles from './style.module.css'
+ 
+const InquiryBlock = () => (
+    <section className={styles.inquiryBlock}>
+    </section>
+)
+ 
+export default InquiryBlock
+```
+I naravno:
+```jsx
+// /modules/TitlePage/index.js
+import React from 'react'
+ 
+import TitleImage from '../../components/TitleImage'
+import InquiryBlock from '../../components/InquiryBlock'
+import styles from './style.module.css'
+ 
+const TitlePage = () => (
+    <section className={styles.titlePage}>
+        <TitleImage />
+        <InquiryBlock />
+    </section>
+)
+ 
+export default TitlePage
+```
+ 
+Dodajmo modul u `pages/index.js`:
+```jsx
+import React from "react"
+ 
+import HeaderFooterLayout from "../layouts/headerFooter"
+import TitlePage from '../modules/TitlePage'
+ 
+const IndexPage = () => (
+  <HeaderFooterLayout activeTab="Home">
+    <TitlePage />
+  </HeaderFooterLayout>
+)
+ 
+export default IndexPage
+```
+ 
+Možemo commit.
+> 6 datoteka
+ 
+[Sadržaj commitova](#tocc)
+### Commit 6: Creating TitleImage <a name="c6"></a>
+  - index.js
+  - style.module.css
+ 
+Prije nego iskopiramo kod par napomena. Realizirat ćemo ovu komponentu koristeći običnu neefikasnu CSS sliku. U sljedećim vježbama pokazat ćemo kako se instalira NPM modul kojeg nudi gatsby koji se zove "*gatsby-background-image*" [[ovdje](https://www.gatsbyjs.com/plugins/gatsby-background-image/)]. To je optimizirana verzija slike. Moći ćemo vidjeti razlike u performansama kad je dodamo na taj način.
+ 
+Slika koju ćemo koristiti je statična i nalazi se u `src/images/cover.jpg`. "Carusel" nećemo raditi u ovim vježbama. Krenimo.
+```jsx
+// /components/TitleImage/index.js
+import React from 'react'
+ 
+import styles from './style.module.css'
+ 
+const TitleImage = () => (
+  <section className={styles.titleImage}>
+    <div>
+      <h1>VILLA OLIVA VERDE</h1>
+      <p>Isolated from the tourist crowd for a pleasant<br/> and peaceful vacation</p>
+    </div>
   </section>
 )
+ 
+export default TitleImage
+```
+CSS
+```css
+.titleImage {
+    height: 650px;
+    width: 100%;
+    position: relative;
+    background: url("http://villaolivaverde.com/imagecache/objectmax/27-12-19/55d36453-07b8-49f3-8763-6d157fa4be23.jpg") no-repeat center center;
+    background-size: cover;
+}
+ 
+.titleImage > div {
+    width: fit-content;
+    height: fit-content;
+    display: flex;
+    flex-flow: column;
+    background: transparent;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    text-align: center;
+    color: white;
+    text-transform: uppercase;
+}
+ 
+.titleImage h1 {
+    font-size: 64px;
+    text-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    margin-bottom: 45px;
+}
+ 
+.titleImage p {
+    font-size: 30px;
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+    padding: 45px 12px;
+    margin: 0;
+    border-top: 2.5px solid #FFF;
+}
+```
+ 
+Commit ready! 
+>2 datoteke
+ 
+[Sadržaj commitova](#tocc)
+### Commit 7: Creating InquiryBlock <a name="c7"></a>
+  - index.js
+  - style.module.css
 
-export default Logo
+Kao i prije, mockat ćemo funkcionalnosti i dodat ćemo ikonice s weba (bez gatsbya). Ovo je ok jer su ikonice dosta male i brzo se učitavaju tako da čak i ako se dogodi pop-in neće se primijetiti.
+```jsx
+import React from 'react'
+ 
+import styles from './style.module.css'
+ 
+const InquiryBlock = () => (
+  <section className={styles.inquiryBlock}>
+    <div className={styles.dateBoxContainer}>
+      <span>Arrival date</span>
+      <div className={styles.dateBox}>
+          <img src="https://github.com/n00ne1mportant/PublicFilesRepo/blob/master/appvd-calendar-2.png?raw=true" />
+          <span>{`${(new Date()).getDate()}.${(new Date()).getMonth() + 1}.${(new Date()).getFullYear()}`}</span>
+      </div>
+    </div>
+    <div className={styles.dateBoxContainer}>
+      <span>Departure date</span>
+      <div className={styles.dateBox}>
+        <img src="https://github.com/n00ne1mportant/PublicFilesRepo/blob/master/appvd-calendar-2.png?raw=true" />
+        <span>{`${(new Date()).getDate() + 1}.${(new Date()).getMonth() + 1}.${(new Date()).getFullYear()}`}</span>
+     </div>
+   </div>
+   <button>Send inquiry</button>
+  </section>
+)
+ 
+export default InquiryBlock
+```
+CSS
+```css
+.inquiryBlock {
+    background-color: #333;
+    margin: 0 auto;
+    color: white;
+    display: flex;
+    height: 44px;
+    padding: 40px 12.5%;
+    width: 75%;
+    min-width: 828.797px;
+    justify-content: space-evenly;
+}
+ 
+.inquiryBlock .dateBoxContainer {
+    display: flex;
+    align-items: center;
+}
+ 
+.inquiryBlock .dateBoxContainer span, img {
+    height: fit-content;
+}
+ 
+.inquiryBlock .dateBoxContainer img {
+    padding: 12px;
+    border-right: 1px solid black;
+    filter: invert();
+}
+ 
+.inquiryBlock .dateBoxContainer .dateBox {
+    height: 44px;
+    width: 225px;
+    display: flex;
+    border: 1px solid white;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: 23px;
+}
+ 
+.inquiryBlock .dateBoxContainer .dateBox span {
+    margin: 0 auto;
+    margin-left: 10px;
+}
+ 
+.inquiryBlock button {
+    height: 44px;
+    width: fit-content;
+    background: black;
+    color: white;
+    padding: 11px 40px;
+    font-size: 16px;
+    border: none
+}
+ 
+.inquiryBlock button:hover {
+    cursor: pointer;
+    border: white 1px solid;
+}
+```
+ 
+Primijetimo da kod CSS koda pišem puno stablo klasa da dođem do pojedinog elementa. Na primjer:<br/>
+`.inquiryBlock .dateBoxContainer .dateBox span` može biti i `.dateBox span`. Pisanje punog stabla poboljšava preglednost. Hijerarhija klasa je vidljiva. Ono što također pomaže su deskriptivna imena. Također, ovaj stil pisanja djeluje na [CSS specificy index](https://css-tricks.com/precedence-css-order-css-matters/). Docs [ovdje](https://developer.mozilla.org/en-US/docs/Web/CSS/Specificity) i [kalkulator](https://specificity.keegan.st/) za bolje razumijevanje. Ako se nađete u situaciji da posežete za [!important](https://www.geeksforgeeks.org/how-to-apply-important-in-css/) vjerojatno imate nered u CSS-u i dodavanje stabla za targetanje elemenata može pomoći. Ali postoje situacije kad je **!important** [opravdan](https://css-tricks.com/when-using-important-is-the-right-choice/).
+ 
+Možemo commit.
+> 2 datoteke
+ 
+[Sadržaj commitova](#tocc)
+### Commit 8: Creating PageContent <a name="c8"></a>
+  - Stvaramo praznu djecu u `components`: `ImageParagraph`
+  - Stvaramo `PageContent` u `modules`
+  - Radimo import u `PageContant`
+  - Dodajemo u `layout`
+ 
+ 
+Kao i inače, stvaramo praznu djecu prvo pa ih importamo u modul. Onda modul importamo u layout.
+Napravimo sad i to:
+```jsx
+// components/ImageParagraph/index.js
+import React from 'react'
+import styles from './style.module.css'
+ 
+const ImageParagraph = () => <section className={styles.imageParagraph}>
+ 
+</section> 
+ 
+export default ImageParagraph
+```
+Modul:
+```jsx
+// modules/PageContent/index.js
+import React from 'react'
+import styles from './style.module.css'
+import ImageParagraph from '../../components/ImageParagraph'
+ 
+const PageContent = () => <section className={styles.pageContent}>
+    <ImageParagraph />
+    <ImageParagraph />
+</section> 
+ 
+export default PageContent
+```
+I naravno `pages/index.js`:
+```jsx
+import React from "react"
+ 
+import HeaderFooterLayout from "../layouts/headerFooter"
+import TitlePage from '../modules/TitlePage'
+import PageContent from "../modules/PageContent"
+ 
+const IndexPage = () => (
+  <HeaderFooterLayout activeTab="Home">
+    <TitlePage />
+    <PageContent />
+  </HeaderFooterLayout>
+)
+ 
+export default IndexPage
+```
+To je to. Možemo commit
+> 5 datoteka
+ 
+[Sadržaj commitova](#tocc)
+### Commit 9: Creating ImageParagraph <a name="c9"></a>
+  - Kako radi gatby-image
+  - Stvaranje `<Image />` komponenti
+  - Import i stvaranje `ImageParagraph` komponente
+  - Slanje komponenti kroz props
+  - Reverse prop
+ 
+Ovo će biti duži commit jer moramo objasniti što je `gatsby-image`, zašto i kako se koristi. Ranije smo pričali o lazy loadingu. `gastby-image` je način koji se realizira u Gastbyu.
+ 
+Zbog činjenice da je Gatsby *static site generator* (sjećamo se?), način na koji on radi s resursima se bitno razlikuje od načina na koji obične *web*-stranice i React rade. U gatsbyu nije moguće dodati slike pomoću lokalne putanje. Na primjer, ako imamo sliku u `src/images` i dodajemo je s `<img src="../images/image.jpg" />`. To neće raditi. Razlog je jednostavan: gatsby ima "build" i kad se build događa, komponente se pretvaraju u HTML i struktura koda se mijenja. Drugim riječima, folder u kojem se događa build nije isti folder u kojem se nalazi komponenta, tako da relativna putanja poput `src="../images/image.jpg"` nema smisla.
+ 
+Ali kad bi ovo radilo, lazy loading ne bi radio. Za referenciranje potrebnih resursa za build koristi se poseban jezik koji se zove **GraphQL**. To je query jezik (kao SQL), ali ne služi pristupu bazi podataka nego modelu podataka (viši nivo apstrakcije). Koristi se na backend serverima kao zamjena za popularni REST (Facebook je prešao s REST-a na GraphQL). Gatsby ima svoj GQL API za dohvaćanje slika, markdown stranica (za blogove), naslova stranice, broja stranica, navigaciju i cijeli niz metapodataka. Sve slike koje se referenciraju u projektu GQL-om (što ćemo mi sad raditi) ubacuju se u komponente prilikom "build" procesa u optimiziranoj varijanti (lazy-loading). 
+ 
+API je dostupan na `http://localhost:8000/___graphql`. [Docs](#https://www.gatsbyjs.com/docs/graphql/). Za [slike](ttps://www.gatsbyjs.com/docs/working-with-images/).
+ 
+Da bi slike bile dostupne GQL-u moraju se nalaziti u `src/images` folderu. Ako se pitate zašto, ova postavka je promjenjiva u `gatsby-config.js` datoteci:
+```js
+module.exports = {
+  siteMetadata: {
+    title: `Gatsby Default Starter`,
+    description: `Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.`,
+    author: `@gatsbyjs`,
+  },
+  plugins: [
+    `gatsby-plugin-react-helmet`,
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `images`,
+        path: `${__dirname}/src/images`, // <== HERE
+      },
+    },
+    `gatsby-transformer-sharp`,
+    `gatsby-plugin-sharp`,
+    ...]
+  ... }
+```
+Ok, sad kad znamo malo pozadine, pitanje je kako se radi sa svim ovim. Dosta jednostavno: za svaku sliku koja se želi optimirati mora postojati posebna komponenta samo za tu sliku. Ovo se može zaobići uz neke "Helper" li "Wrapper" komponente i pokazat ću kako. Za sada držat ćemo se ove paradigme: jedna slika, jedna komponenta.
+ 
+Krenimo s prvim korakom: dohvaćanje slike.</br>
+Slike koje ćemo koristiti nalaze se 
+- [ovdje](http://villaolivaverde.com/imagecache/bigthumbnail/27-12-19/9c96f739-4c03-4954-97b1-34fea47dd427.jpg) i
+- [ovdje](http://villaolivaverde.com/imagecache/bigthumbnail/20-12-19/93c3e84f-9bdd-43b9-979e-3b906147cac1.JPG)
+ 
+Nakon što ih spremite, ubacite ih u `src/images` folder i dajte im neko jednostavno ime. Ja ću im dati imena
+ - `prva.jpg`
+ - `druga.jpg`
+ 
+ zato što sam jako kreativan. 
+ <p align="center">
+   <img src="./readmeRess/vj4sc5.png" />
+ </p>
+ 
+ Sad stvaramo novi folder u `/src/components` kojeg zovemo `Images` (`/src/components/Images`). Sad je vrijeme da stvorimo *GatsbyImage* komponente. Stvaramo `components/Images/First` i `components/Images/Second` kao što inače stvaramo komponente. Krenimo s prvom:
+ ```jsx
+import React from 'react'
+ 
+const First = () => {
+    <div></div>
+}
+ 
+export default First
+ ```
+ 
+ Sad treba koristeći GQL dohvatiti sliku iz `src/images` i dovući je ovdje. Dobivamo sljedeći kod:
+ ```jsx
+import React from 'react'
+import { useStaticQuery, graphql } from "gatsby"
+import Img from "gatsby-image"
+ 
+const First = () => {
+    const data = useStaticQuery(graphql`
+    query {
+      myImage: file(relativePath: { eq: "prva.jpg" }) {
+        childImageSharp {
+          fixed(width: 570) {
+            ...GatsbyImageSharpFixed
+          }
+        }
+      }
+    }
+  `)
+   return <Img fixed={data.myImage.childImageSharp.fixed} />
+}
+ 
+export default First
+ ```
+Izgleda kompliciranije nego što jest. Krenimo redom:
+```jsx
+const data = useStaticQuery(graphql`...`)
+```
+`useStaticQuery(graphql` uvijek idu skupa. To jest `grapql` priprema query tako da ga `useStaticQuery` može pozvati. Ništa pametno. Sam query je ono što nas zanima:
+```js
+    query {
+      myImage: file(relativePath: { eq: "prva.jpg" }) {
+        childImageSharp {
+          fixed(width: 570) {
+            ...GatsbyImageSharpFixed
+          }
+        }
+      }
+    }
+```
+`file(relativePath: {eq: "prva.jpg"}` <br/>
+Kao što smo rekli ranije, GQL može dohvaćati puno stvari. `file` znači da želimo da dohvati file (duh). Unutar zagrada definiramo uvjete koje taj file mora zadovoljavati. Želimo da njegov `relativePath`, to je path unutar `src/images` foldera, bude jednak stringu `prva.jpg`. Jednakost označava `eq` parametar (equals). <br/>
+`myImage` je proizvoljan alias u koji spremamo rezultat poziva.
+ 
+Ovo ostalo je specifično za slike. `childImageSharp` je transformator koji uzima sliku i optimira je. Rezultirajuća slika može biti `fixed` ili `fluid`. Vidimo da je naša `fixed`. Svi parametri koji slijede su definicije za optimiziranu sliku. Definiramo njenu širinu u našem slučaju, ali možemo definirati puno više stvari. Možemo primjeniti filtere kao na instagramu, dobiti negativ, crno-bijelu sliku, zamagljenje i niz drugih stvari. Sve te transformacije se definiraju unutar `childImageSharp`. `...GatsbyImageSharpFixed` je predefiniran set parametara koje daje Gatsby. Ovi koje vidimo su za *lazy-loading*.
+ 
+Definirajmo sad na isti način i drugu sliku:
+```jsx
+import React from 'react'
+import { useStaticQuery, graphql } from "gatsby"
+import Img from "gatsby-image"
+ 
+const Second = () => {
+    const data = useStaticQuery(graphql`
+    query {
+      myImage: file(relativePath: { eq: "druga.jpeg" }) {
+        childImageSharp {
+          fluid(maxWidth: 800) {
+            ...GatsbyImageSharpFluid
+          }
+        }
+      }
+    }
+  `)
+   return (
+     <div style={{maxWidth: "800px", minWidth: "300px"}}> 
+       <Img fluid={data.myImage.childImageSharp.fluid} />
+     </div>
+   )
+}
+ 
+export default Second
+```
+Ova slika je `fluid` umjesto `fixed`. Postoji jedna bitna razlika. Slika koja je `fluid` **mora** biti unutar container komponente. Uvijek će pokušati uzeti cijelu komponentu. Definiranje veličine komponente pomoću `maxWidth` i `minWidth` (ili `height` naravno) uz fleksibilan size (`width`/`height` u postocima) rezultirat će responzivnom fleksibilnom slikom. U ovom primjeru zakucao sam neke parametre pomoću `style` objekta jer ne želim raditi `.css` file zbog jednog `div` elementa. Ovaj pattern za definiranje `fluid` slika s containerom odmah u komponenti i definiranim max/min parametrima u containeru je dobar pristup za pisanje fluid slika. Ovi parametri mogu se slati i kroz `props`.
+ 
+> `fluid(maxWidth: 800)` ne znači ništa. Fluid NEĆE poštivati maxWidth stavljen ovdje. Ovo samo govori kakav treba biti container te slike. Primijetite da je ista vrijednost stavljena u `maxWidth` u CSS-u.
+ 
+Sad radimo import u `ImageParagraph`... Ali koju sliku uvozimo? Budući da imamo dvije slike i jednu `ImageParagraph` komponentu? Također, imamo i dva različita teksta. Možemo napraviti `ImageParagraph_1` i `ImageParagraph_2` pa zakucati prvi tekst i sliku u prvi pa drugi tekst i sliku u drugi, ali to nije naš stil ^ ^
+ 
+Želimo reći komponenti što da iscrta u trenutku kad je stvaramo. Sad već znamo kako govorimo komponentama što da rade u Reactu: `props`
+```jsx
+import React from 'react'
+import styles from './style.module.css'
+ 
+const ImageParagraph = ({image, title, text }) => (
+  <section className={styles.imageParagraph}>
+    <div className={styles.imageHalf}>{image}</div>
+    <div className={styles.articleHalf}>
+        <article >
+          <h2>{title}</h2>
+          <p>{text}</p>
+        </article>
+    </div>
+  </section>
+  )
+ 
+export default ImageParagraph
 ```
 CSS:
 ```css
-@import url(https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap);
-
-.logo {
-  display: flex;
-  flex-flow: column;
-  width: fit-content;
-  height: 52px;
-}
-
-.logoText {
-  font-family: "Great Vibes";
-  font-size: 52px
-}
-
- .sub {
-  text-align: center;
-  font-size: 14px;
-}
-```
- 
-`@import` služi za ubacivanje fontova ili CSS varijabli u trenutnu CSS datoteku. Font koji smo ubacili je `"Great Vibes"`.
- 
-Sad, kad je Logo stvoren trebamo ga ubaciti u `NavigationHeader` pa će se prikazati na serveru (jer smo `NavigationHeader` ubacili u `pages/index.js`). `NavigationHeader`:
- 
-```jsx
-import React from 'react'
-import Logo from '../Logo'
-
-import styles from './style.module.css'
- 
-const NavigationHeader = () => (
-  <section className={styles.navigationHeader}>
-    <Logo />
-  </section>
-)
- 
-export default NavigationHeader
-```
-Sad bismo na serveru `localhost:8080` trebali vidjeti ovo:
-<p align="center">
-  <img src="./readmeRess/commit2.png">
-</p>
- 
-Ako je sve u redu možemo commitat.
-```bash
-  $ git add .
-  $ git commit -m "Adding Logo"
-```
-<br/>[Sadržaj git commitova](#toc)
- 
-## Commit 3: adding Navigation <a name="c3"></a>
-- Mijenjamo raspored stvaranja komponente
-- Stvaramo prazne potkomponente:
-  - `<NavigationBar />`
-  - `<Combobox />`
-- Stvaramo `<Navigation />` i radimo import
-- Radimo import `<Navigation />` u `<NavigationHeader />`
-
-Stvaramo potkomponente za `<Navigation />`, ali `prazne`. To znači da vraćamo `<section>` ili `<div>`. Također sve `style.module.css` datoteke postoje (da ne dobijemo not found error), ali su apsolutno prazne.
-<br/>`components/NavigationBar/index.js`:
-
-```jsx
-import React from 'react'
-
-import styles from './style.module.css'
-
-const NavigationBar = () => <section></section>
-
-export default NavigationBar
-```
-Za `Combobox`:
-```jsx
-import React from 'react'
-
-import styles from './style.module.css' 
-
-const Combobox = () => <section></section>
-
-export default Combobox
-```
-Sad stvaramo `Navigation` i radimo import ove dvije komponente. Da smo stvorili `Navigation` odmah ne bismo mogli importat. Redoslijed stvaranja nije bitan. Bitno je samo ne commitat slomljen kod (gdje se server ne može prikazati zbog greške). `Navigation`:
-```jsx
-import React from 'react'
-
-import NavigationBar from '../NavigationBar'
-import Combobox from '../Combobox'
-import styles from './style.module.css'
-
-const Navigation = () => (
-  <section>
-    <NavigationBar />
-    <Combobox />
-  </section>
-)
-
-export default Navigation
-``` 
-  U `NavigationHeader` radimo import za `Navigation`:
-```jsx
-import React from 'react'
-
-import Logo from '../Logo'
-import Navigation from '../Navigation'
-
-import styles from './style.module.css'
-
-const NavigationHeader = () => (
-  <section className={styles.navigationHeader}>
-      <Logo />
-      <Navigation />
-  </section>
-)
-export default NavigationHeader
-```
-  ```bash
-  $ git add .
-  $ git commit -m "adding Navigation"
-  ```
-  Sad kad su containeri napravljeni i importani, možemo nastaviti.
-
-<br/>[Sadržaj git commitova](#toc)
- 
-## Commit 4: adding NavigationBar part 1 <a name="c4"></a>
-- Stvaramo array navigacijskih tabova kao `<span>`
-- Dodajemo CSS za navigacijske tabove
- 
-U `NavigationBar/index.js` pišemo kod sa navigacijskim linkovima:
-- Home
-- Accommodation
-- Foto galery
-- Contact
-```jsx
-import React from 'react'
-
-import styles from './style.module.css'
-
-const NavigationBar = () => (
-  <nav className={styles.navigationBar}>
-      <li className={styles.active}>Home</li>
-      <li>Accommodation</li>
-      <li>Photo gallery</li>
-      <li>Contact</li>
-  </nav>
-)
-
-export default NavigationBar
-```
-  CSS za `NavigationBar`: 
-```css
-.navigationBar {
-  display: flex;
-  justify-content: space-evenly;
-  flex-flow: row;
-  width: 480px;
-}
-
-.navigationBar li {
-  padding: 14px 15px;
-  list-style: none;
-  width: fit-content;
-  font-size: 14px;
-  line-height: 22px;
-  text-transform: uppercase;
-  color: #555
-}
-.navigationBar li:hover {
-  border-bottom: 2px solid darkgray;
-  cursor: pointer;
-}
-
-.navigationBar .active, .navigationBar .active:hover{
-  border-bottom: 2px solid black;
-}
-  ```
-  Ako je sve prošlo ok trebali bismo vidjeti ovo:
-  <p align="center">
-    <img src="./readmeRess/sc3.png" />
-  </p>
- 
-Ako se stranica ne osvježava pokušajmo ugasiti gatsby server sa CTRL+C i pokrenuti ga opet sa `gastby develop`. Ako je sve ok, možemo commit:
-  ```bash
-  $ git add .
-  $ git commit -m "adding NavigationBar part 1"
-  ```
-<br/>[Sadržaj git commitova](#toc)
- 
-## Commit 5: refactor tabs to use map() <a name="c5"></a>
-- Koristimo `map()` funkciju
- 
-Umjesto da zakucavamo 5 `<li>` tagova, jednostavno pozovemo `map()` nad listom stringova na sljedeći način:
-```jsx
-  import React from 'react'
- 
-  import styles from './style.module.css'
- 
-  const navTabs = ['Home', 'Accommodation', 'Photo Gallery', 'Contact']
- 
-  const NavigationBar = () => (
-    <nav className={styles.navigationBar}>
-      {navTabs.map(
-        tab => <li>{tab}</li>)
-      }
-    </nav>
-  )
- 
-  export default NavigationBar
-```
-Dodali smo novu varijablu: `navTabs` koja je niz naših tabova. U `map()` funkciji ispod pretvorimo svaki `tab` njih u `<li>tab</li>`.
- 
-Međutim sad imamo mali problem. Nemamo `active` klasu koju smo imali prije. Ako je dodamo u map ovako:
-```jsx
-// ...
-  const NavigationBar = () => (
-  <nav className={styles.navigationBar}>
-    {navTabs.map(
-      tab => <li className={styles.active}>{tab}</li>)
-    }
-  </nav>
-)
-```
-onda će svi tabovi biti aktivni (probajte). Mi želimo da samo `Home` bude active. Kako ovo riješiti?
- 
-Kao i uvijek, postoji više načina. Najlakši je onaj koji je i najočiti: provjerimo je li trenutni tag `Home`, ako nije vratimo `<li>` bez active, a ako je vratimo `<li className={styles.active}>`.
-```jsx
-// ...
-const NavigationBar = () => (
-  <nav className={styles.navigationBar}>
-    {navTabs.map(tab => {
-      if (tab === 'Home')
-      return (
-        <li className={styles.active}>
-          {tab}
-        </li>)
-      else
-        return <li>{tab}</li>
-      }
-    )}
-  </nav>
-)
-``` 
-Možemo i one-linerom s ternarnim operatorom:
-```jsx
-const NavigationBar = () => (
-  <nav className={styles.navigationBar}>
-    {navTabs.map(tab => <li className={tab==='Home' ? styles.active : ''}>
-      {tab}</li>
-    )}
-  </nav>
-)
-```
-  Stavljamo active ako je `Home`, inače prazna klasa. *GG ez*
-
-  ```bash
-  $ git add .
-  $ git commit -m "refactor tabs to use map()"
-```
- 
-<br/>[Sadržaj git commitova](#toc)
- 
-## Commit 6: refactor to use props for .active <a name="c6"></a>
-- Dodajemo prop "activeTag"
-- Provjeravamo prop "activeTag"
-- Prosljeđujemo props "activeTag" iz `pages/index.js` u NavigationHeader
-- Prosljeđujemo props "activeTag" iz `NavigationHeader` u `NavigationBar`
- 
-Prije nego krenemo dalje napravimo još jednu sitnicu. Ako se nalazimo npr. na `Contact` stranici i koristimo ovu istu navigaciju (jer zašto ne?) onda imamo problem... Zakucali smo provjeru aktivne stranice na `Home`, što znači da će uvijek `Home` biti aktivan i ništa drugo osim `Home` ikad. To **ne želimo**. Rješenje su 3 linije koda. Prvo, želimo reći komponenti što da provjerava dinamički, a za to koristimo **props**. Onda u provjeri trebamo samo ubaciti taj props. I na kraju, unutar `pages/index.js` i svih drugih stranica kasnije, trebamo samo proslijediti aktivnu stranicu kao props. Koristit ćemo ime `activeTab` u tu svrhu. Krenimo s `NavigationBar`:
-```jsx
-const NavigationBar = props => (
-  <nav className={styles.navigationBar}>
-      {navTabs.map(tab => <li className={tab === props.activeTab ? styles.active : ''}>
-        {tab}</li>
-      )}
-  </nav>
-)
-```
-Primijetimo novi `props` parametar i njegovu uporabu u provjeri `props.activeTab`. Isto tako možemo i koristiti dekonstrukciju pa nam `props` ne treba:
-```jsx
-const NavigationBar = ({activeTab}) => (
-  <nav className={styles.navigationBar}>
-    {navTabs.map(tab => <li className={tab === activeTab ? styles.active : ''}>
-      {tab}</li>
-    )}
-  </nav>
-)
-```
-Osobno preferiram takav zapis jer odmah vidim koje parametre očekujem ako ih ima više, ali naravno oba pristupa su točna i po standardu. Sad trebamo proslijediti dotični parametar. Idemo u `pages/index.js` i vidimo ovo:
-```jsx
-const IndexPage = () => (
-  <main>
-    <ContactBar />
-    <NavigationHeader />
-  </main>
-)
-```
-  <a name="props"></a>
-I vidimo da imamo problem... Naša komponenta je `NavigationBar`, a ovdje vidimo `NavigationHeader`. To je parent komponenta naše komponente.
-Znači moramo poslat prop iz `pages/index.js` u `NavigationBar`, a `NavigationHeader` stoji između... Jesmo li krivo složili arhitekturu?
- 
-Ne! Ovo se događa dosta često i gotovo je nemoguće za izbjeći. Kako se to riješava? Lako. Koristimo nešto što React programeri zovu "props drilling". To je fancy naziv za slanje našeg propa u parent pa onda iz parenta u naš child. `pages/index.js =prop=> NavigationHeader =prop=> Navigation =prop=> NavigationBar`. Krenimo s `pages/index.js`:
-```jsx
-const IndexPage = () => (
-  <main>
-    <ContactBar />
-    <NavigationHeader activeTab = "Home" />
-  </main>
-)
-```
-  Ok, poslali smo `activeTab` varijablu u `NavigationHeader`. Sad idemo tamo i šaljemo dalje dok se ne "dokopamo" `NavigationBar` komponente kojoj to želimo poslati (otud naziv "drilling").
-```jsx
-const NavigationHeader = ({ activeTab }) => (
-  <section className={styles.navigationHeader}>
-      <Logo />
-      <Navigation activeTab={activeTab} />
-  </section>
-)
-```
-Sad smo poslali prop u `Navigation`. To je posljednja stanica prije `NavigationBar`. Idemo u `Navigation`
-```jsx
-const Navigation = ({ activeTab }) => (
-  <section>
-      <NavigationBar activeTab={activeTab} />
-      <Combobox />
-  </section>
-)
-```
-Sad je `activeTab` napokon stigao do `NavigationBar` komponente. Ako je sve prošlo uredno vidimo ovo:
-  <p align="center">
-    <img src="./readmeRess/sc4.png">
-  </p>
- 
-Ako želimo biti sigurni možemo otići u `pages/index.js` i staviti "Contact" umjesto "Home":
- 
-  ```jsx
-    const IndexPage = () => (
-      <main>
-        <ContactBar />
-        <NavigationHeader activeTab = "Contact" />
-      </main>
-    )
-  ```
-  Onda imamo ovo:
-  <p align="center">
-    <img src="./readmeRess/sc5.png">
-  </p>
- 
-To je to! Razlog zbog kojeg ovo radimo je taj što sad kad napravimo `pages/ contact.js` i linkamo ga, trebamo samo dodati `activeTab = "Contact"` kao  parametar i možemo koristi iste komponente za navigaciju.
-  ```bash
-  $ git add .
-  $ git commit -m "refactor to use props for .active"
-  ```
-<br/>[Sadržaj git commitova](#toc)
- 
-## Commit 7: adding Combobox <a name="c7"></a>
-- Dodajemo kod i CSS za Combobox
-- Dodajemo stilove za Navigation
-- Dodajemo stilove za NavigationHeader
- 
-Combobox je definiran, ali prazan. Za sada ćemo napraviti lažni *combobox*. Često se koristi riječ ["mock"](https://stackoverflow.com/a/40244095) za lažne komponente, iako je taj izraz više vezan uz *unit-testing*. Idemo u `Combobox` komponentu i pišemo kod:
-```jsx
-  import React from 'react'
- 
-  import styles from './style.module.css' 
- 
-  const Combobox = () => <span className={styles.combobox}>English</span>
- 
-  export default Combobox
-```
-  CSS:
-```css
-  .combobox {
-    margin-left: 30px;
-    text-align: center;
-    display: block;
-    height: 36px;
-    width: 107px;
-    border: solid 1px black;
-    font-size: 14px;
-    line-height: 36px;
-    text-transform: uppercase;
-  }
-```
-  Ako sad pogledamo stranicu imamo ovaj nered:
- 
- 
-  <p align="center">
-    <img src="./readmeRess/sc6.png">
-  </p>
- 
-Nažalost, ovo ne možemo riješiti unutar `Combobox` komponente. Moramo pristupiti `Navigation` containeru i podesiti `width` da `Combobox` može stati unutar skupa s navigacijom. Dodajmo sljedeći kod u prazan `Navigation/style.module.css`: 
-```css
-  .navigation {
-    height: 52px;
+.imageParagraph {
     display: flex;
+    justify-content: space-between;
+    margin: 60px auto;
+    width: 90vw;
     align-items: center;
-  }
+    background-color: #f3f3f3;
+}
+ 
+.reverse {
+    flex-flow: row-reverse;
+}
+ 
+.imageParagraph .imageHalf, .articleHalf {
+    min-width: 45%;
+    height: 100%;
+}
+ 
+.imageParagraph article {
+    max-width: 70%;
+    margin: 0 auto;
+    letter-spacing: 0.2px;
+}
+ 
+.imageHalf div, .imageHalf div div {
+    width: 100%;
+}
 ```
-  Dodajte `styles.navigation` u `.js` datoteku na root da se stil primijeni (sad već bi trebali znati kako).
+Apsolutno je moguće poslati komponente kroz props umjesto kroz `props.children`. Ovo je korisno pogotovo u situacijama kad se šalju *sibling* komponente što je slučaj kod nas. Komponenta se "aktivira" s `<Component />` i samo se prikaže direktno u kodu kasnije.
  
-  Sad trebamo promijeniti i `NavigationHeader` CSS. Vidimo da je sadržaj "nabijen" na rubove tj. nema margina. Također, trebali bismo ga vertikalno centrirati. Dodajmo još ove dvije linije unutar postojećeg CSS-a: 
-```css
-  {
-    ...
-    margin: 0 15px;
-    align-items: center;
-  }
-```
- 
-  <p align="center">
-    <img src="./readmeRess/sc7.png">
-  </p>
- 
-  Vrijeme za commit:
-```bash
-  $ git add .
-  $ git commit -m "adding Combobox"
-```
-<br/>[Sadržaj git commitova](#toc)
- 
-  ## Commit 8: adding footer <a name="c8"></a>
-  - Stvaranje `<Footer />` komponente
-  - Dodavanje novog stila u `NavigationBar`
-  - Dodavanje u `pages/index.js`
- 
-  `<Footer />` komponenta koju ćemo sad stvoriti nije dio kompozicije komponenti iznad. `Footer` ide direktno u `pages/index.js` ispod `NavigationHeader` komponente. Budući da je `Footer` u potpunosti statičan, nećemo ga uopće razbijati na potkomponente jer nema smisla. Stvaramo folder u `components` i pišemo kod:
+U `PageContent` imamo ovo:
 ```jsx
-  import React from 'react'
-  import styles from './style.module.css'
+import React from 'react'
+import styles from './style.module.css'
+import ImageParagraph from '../../components/ImageParagraph'
+import First from '../../components/Images/First'
+import Second from '../../components/Images/Second'
  
-  const navTabs = ['Home', 'Accommodation', 'Photo Gallery', 'Contact']
+const firstText = `
+  Villa Oliva Verde is positioned in Vinkuran, isolated from the tourist
+  crowd for a pleasant and peaceful vacation. 
+  It is ideal for nature lovers who enjoy peace and relaxation. 
+  Villa has four bedrooms called Olive, Lavanda, 
+  Sea and Antique room. Each bedroom has its own bathroom, TV and air conditioning. 
+  Also, there are two more sofa beds and the living room with 
+  a pull-out sofa bed so ....
+`
  
-  const Footer = () => (
-    <footer className={styles.footer}>
-        <ul className={styles.address}>
-            <li className={styles.title}>
-                VILA OLIVA VERDE
-            </li>
-            <li>Štrped 24</li>
-            <li>521000 Vinkuran</li>
-            <li className={styles.phone}>
-                +385 99 11223344
-            </li>
-            <li>example@email.com</li>
-        </ul>
-        <ul className={styles.navigation}>
-            {navTabs.map(tab =>
-              <li>{tab}</li>)
-            }
-        </ul>
-    </footer>
-  )
+const secondText = `
+  solated from the tourist crowds, yet just a few kilometers 
+  from the tourist centers, lies the fishing village Vinkuran. 
+  The private apartments above Vinkuran Bay and Soline Cove guarantee 
+  a pleasant and peaceful vacation. Vinkuran has a sheltered beach along pine trees.
+  ....`
  
-  export default Footer
+const PageContent = () => (
+  <section className={styles.pageContent}>
+    <ImageParagraph image={<First />} title="About us" text={firstText}/>
+    <ImageParagraph image={<Second />} title="Vinkuran" text={secondText}/>
+  </section>)
+ 
+export default PageContent  
 ```
-  CSS:
-```css
-  .footer {
-      background-color: #333;
-      padding: 40px;
-      display: flex;
-      color: white;
-      font-size: 16px;
-  }
+Primijetimo samo još jednu sitnicu. U drugoj komponenti redoslijed je okrenut. To možemo postići dodavanjem klase koja ima `flex-flow: row-reverse;` na komponentu.
+Želimo to kontrolirati parametrom: ako se pošalje, stavi klasu inače ne. Definirajmo prop `reversed`:
+```jsx
+import React from 'react'
+import styles from './style.module.css'
  
-  .footer .address {
-      list-style: none;
-      display: flex;
-      flex-flow: column;
-      text-align: center;
-      border-right: 1px #999 solid;
-      padding-right: 10px;
-  }
- 
-  .title {
-      font-size: 28px;
-      margin-bottom: 30px;
-      margin-top: 10px;
-  }
- 
-  .phone {
-      margin: 11px 0;
-  }
- 
-  .navigation {
-      padding-top: 15px;
-      list-style: none;
-      display: flex;
-      text-transform: uppercase;
-  }
- 
-  .navigation li {
-      margin: 0 10px;
-      font-size: 16px;
-      height: fit-content;
-  }
- 
-  .navigation li:hover {
-      border-bottom: 1px solid white;
-      cursor: pointer;
-  }
-  ```
-  Dodajmo ga u `pages/index.js`:
-  ```jsx
-  import React from 'react'
- 
-  import ContactBar from '../components/contactBar'
-  import NavigationHeader from '../components/NavigationHeader'
-  import Footer from '../components/Footer'
- 
-  const IndexPage = () => (
-    <main>
-      <ContactBar />
-      <NavigationHeader activeTab = 'Home' />
-      <Footer />
-    </main>
+const ImageParagraph = ({image, title, text, reversed }) => (
+  <section className={reversed ? `${styles.imageParagraph} ${styles.reverse}` : styles.imageParagraph}>
+    <div className={styles.imageHalf}>{image}</div>
+    <div className={styles.articleHalf}>
+        <article >
+          <h2>{title}</h2>
+          <p>{text}</p>
+        </article>
+    </div>
+  </section>
   )
  
-  export default IndexPage
-  ```
-  Primijetimo par problema ovdje. Imamo istu `navTabs` varijablu koju imamo i u `NavigationBar` komponenti. Recimo da se `navTabs` promijeni u `NavigationBar` (dodamo novi tag npr.), moramo napraviti promjenu i u `Footer` komponenti. To je tzv. "problem konzistencije", a rješava se tako da se `navTabs` definira negdje izvan obje komponente pa se uvozi u njih. Na taj način koliko god referenci na `navTabs` imali, mijenjamo ga na jednom mjestu.
+export default ImageParagraph
+```
+Opet ternarni operator zamjenjuje `if else` kao i prije. Sad samo treba poslati parametar iz `PageContent`:
+```jsx
+const PageContent = () => <section className={styles.pageContent}>
+    <ImageParagraph image={<First />} title="About us" text={firstText}/>
+    <ImageParagraph image={<Second />} title="Vinkuran" text={secondText} reversed/>
+</section> 
+```
+Kod slanja *bool* parametara dovoljno je samo staviti ime parametra. Nije potrebno pisati `reserved={true}`. Ako parametar nije poslan,  to je, naravno, `false`.
+Možemo commit
+> 7 datoteka
  
-  Također, primijetite da je navigacija ista kao i na vrhu stranice. Razlikuje se samo u CSS-u, ali praktički je riječ o istoj komponenti. Umjesto ponovnog pisanja navigacijskih tabova mogli smo napraviti import `NavigationBar` komponente i proslijediti joj novu CSS klasu kao prop. CSS klasa mora biti definirana unutar `NavigationBar` .css datoteke i mora postojati logika za provjeru proslijeđene klase. Što učiniti ako se klasa proslijedi odnosno ne proslijedi.
+Preporučena dokumentacija za `gastby-image` i `graphql`:
+  - [gatsby-image](https://gatsby.dev/gatsby-image)
+  - [useStaticQuery](https://www.gatsbyjs.org/docs/use-static-query/)
+  - [Kolekcija videa](https://egghead.io/playlists/using-gatsby-image-with-gatsby-ea85129e)
  
-  ### Composition pattern vs Inheritance pattern <a name="c81"></a>
-  Vratimo se malo na teoriju. Kada bismo imali ovaj problem u klasičnom OOP-u riješili bismo ga **nasljeđivanjem (Inheritance)**. Definirali bismo klasu koja nasljeđuje `NavigationBar` i nazvali bismo je `FooterNavigationBar` na primjer. Definirali bismo nove boje i to je to. 
+[Sadržaj commitova](#tocc)
+## Review
  
-  Međutim ReactJS koristi drugi pristup koji se zove **Composition**. On omogućuje slaganje više komponenti poput kockica i tako tvori nove komponente. Polimorfizam se ostvaruje neposredno definiranjem različitog ponašanja na osnovu parametara koje komponenta prima. U sljedećim vježbama pokazat ćemo kako se to radi tako što ćemo ponovno iskoristiti `NavigationBar` komponentu u `Footer` komponenti. Također, složit ćemo `Footer` i `NavigationHeader` skupa u jednu cjelinu: **layout**
- 
-  <br/>[Sadržaj git commitova](#toc)
- 
-  # Review
-  Prošli smo kroz stvaranje liste komponenti, stvaranja kompozicije komponenti i slanja `props` kroz stablo komponenti.
-  Ono što treba zapamtiti:
-  - Kako se planira segment stranice [[link](#plan)]
-  - Što je map() i čemu služi [[link](#map)]
-  - Što je "props drilling" [[link](#props)]
+Prošli smo što je to layout, modul i kako lazy-loading. To je ono što je najbitnije u ovim vježbama. Ponovit ćemo.
+  - *Modul*: komponenta koja se direktno referencira u `pages/*.js` datotekama. Logički predstavlja zaokruženu cjelinu *web*-stranice.
+  - *layout*: komponenta koja definira zajedničku strukturu više modula ili komponenti. Često se koristi kod multi-page aplikacija za definiranje sadržaja koji je isti na stranicama. Eliminira kopiranje koda.
+  - *lazy-loading*: Omogućava učitavanje sadržaja dinamički. Dok se sadržaj učitava korisnik može navigirati stranicom. Izbjegava *pop-in* i pruža ugodno korisničko iskustvo.
+  - *GraphQL*: jezik kojeg koristi gatsby (ne isključivo) za upravljanje metapodatcima. Koristi se međuostalim za učitavanje slika uz *lazy-loading*.
+  - *gatsby-image*: gatsby izvedba *lazy-loading* slika. Oslanja se na *GraphQL*.

@@ -101,7 +101,7 @@ Način na koji CSS moduli rade je dosta banalan. Prije nego se kod ubaci u HTML 
 
 ```jsx
 import React from 'react'
-import styles from 'styles.module.css'
+import styles from 'style.module.css'
 
 const SomeButton = () => (
   <div className='global-class-name'>
