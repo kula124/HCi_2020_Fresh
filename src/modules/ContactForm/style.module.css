@@ -1,0 +1,80 @@
+.contactForm {
+    display: flex;
+    justify-content: space-between;
+    padding: 50px 50px;
+}
+
+.contactForm h2 {
+    text-transform: uppercase;
+    color: #333;
+    font-weight: lighter;
+    font-size: 28px;
+}
+
+.contactInfo h3 {
+    text-transform: uppercase;
+    color: #999;
+    margin: 0;
+    font-size: 14px;
+}
+
+.contactInfo p, address {
+    color: #333;
+    font-weight: bolder;
+    margin: 0;
+    padding-bottom: 30px;
+}
+
+.contactInfo {
+    width: 400px;
+}
+/*/////////////*/
+.form form {
+    width: 900px;
+    display: flex;
+    justify-content: flex-start;
+    flex-flow: row;
+    flex-wrap: wrap;
+}
+
+.form form > div {
+    width: 400px;
+    margin-right: 45px;
+    display: flex;
+    flex-flow: column;
+}
+
+.form form input {
+    width: 400px;
+    height: 35px;
+    border: 1px solid lightgray;
+}
+
+.form form label {
+    padding: 10px 0;
+}
+.form form .message {
+    width: 100%;
+}
+
+.form form .message > input {
+    height: 200px;
+    width: auto;
+}
+
+.contactForm button {
+    background-color: #000;
+    color: white;
+    width: 185px;
+    padding: 11px 40px;
+    margin-left: auto;
+    margin-right: 45px;
+    margin-top: 15px;
+    border: 1px solid #000;
+}
+
+.contactForm button:hover {
+    background: #333;
+    cursor: pointer;
+    border: 1px solid #333;
+}
