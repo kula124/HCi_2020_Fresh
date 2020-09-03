@@ -1,0 +1,21 @@
+.separator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100px;
+    background-color: #333;
+}
+
+.separator .horizontalLine {
+    height: 1px;
+    width: 200px;
+    background-color: whitesmoke;
+}
+
+.separator h2 {
+    font-size: 24px;
+    padding: 0 20px;
+    color: whitesmoke;
+    text-transform: uppercase;
+    font-weight: lighter;
+}

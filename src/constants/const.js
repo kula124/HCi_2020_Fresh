@@ -1,4 +1,9 @@
-export const navs = ['Home', 'Accommodation', 'Photo Gallery', 'Contact']
+export const navs = [
+    {tab: 'Home', to: '/'},
+    {tab: 'Accommodation', to: '/'}, 
+    {tab: 'Photo Gallery', to: '/'}, 
+    {tab: 'Contact', to: 'contact'}
+]
 
 export const languages = [
     {
