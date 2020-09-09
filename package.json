@@ -16,6 +16,7 @@
     "gatsby-plugin-react-helmet": "^3.3.10",
     "gatsby-plugin-sharp": "^2.6.24",
     "gatsby-source-filesystem": "^2.3.23",
+    "gatsby-source-instagram": "^0.8.0",
     "gatsby-transformer-sharp": "^2.5.12",
     "prop-types": "^15.7.2",
     "react": "^16.12.0",
