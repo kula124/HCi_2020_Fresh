@@ -5,9 +5,9 @@ import GalleryContainer from '../../components/GalleryContainer'
 
 const GalleryContinent = () => (
     <main className={styles.galleryContent}>
-        <GalleryContainer title="Amazing exterior" />
-        <GalleryContainer title="Relaxing sauna" />
-        <GalleryContainer title="Modern interior" />
+        <GalleryContainer title="Amazing exterior" start={0} end={4} isGray />
+        <GalleryContainer title="Relaxing sauna" start={4} end={8} />
+        <GalleryContainer title="Modern interior" start={8} end={24} isGray />
     </main>
 )
 
