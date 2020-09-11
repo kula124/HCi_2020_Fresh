@@ -3,11 +3,18 @@ import React from 'react'
 import styles from './style.module.css'
 import GalleryContainer from '../../components/GalleryContainer'
 
+const titles = ["Amazing exterior", "Relaxing sauna", "Modern interior"]
+
 const GalleryContinent = () => (
     <main className={styles.galleryContent}>
-        <GalleryContainer title="Amazing exterior" start={0} end={4} isGray />
-        <GalleryContainer title="Relaxing sauna" start={4} end={8} />
-        <GalleryContainer title="Modern interior" start={8} end={24} isGray />
+        {titles.map((title, index) =>
+            <GalleryContainer title={title} isGray={index % 2 === 0}
+            start={index * 4}
+            end={(index + 1) === 3
+                ? (index + 4) * 4
+                : (index + 1) * 4}
+            />
+        )}
     </main>
 )
 
