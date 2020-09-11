@@ -1,7 +1,21 @@
+@import url("https://fonts.googleapis.com/css?family=Lato");
+
 .galleryContainer {
-    width: 80%;
+    width: 100%;
     display: flex;
     flex-flow: column;
     align-items: center;
     justify-content: center;
+    padding-top: 30px;
+}
+
+.galleryContainer h1 {
+    text-align: center;
+    margin: 10px 0px 25px;
+    font-size: 34px;
+    font-weight: 500;
+    text-transform: uppercase;
+    color: #999;
+    letter-spacing: 1.4px;
+    font-family: Lato;
 }
