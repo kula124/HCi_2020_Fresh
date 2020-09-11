@@ -7,7 +7,7 @@ import styles from './style.module.css'
 const GalleryContainer = ({title}) => (
     <section className={styles.galleryContainer}>
         <h1>{title}</h1>
-        <ImagePool />
+        <ImagePool start={1} end={4} />
     </section>
 )
 
