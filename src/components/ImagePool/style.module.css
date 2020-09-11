@@ -1,0 +1,15 @@
+.imagePool {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 40px 0;
+    width: calc(1280px + 8 * 10px);
+}
+
+.imagePool > div {
+    margin: 6px 10px;
+    transition: all 0.5s ease-in-out;
+}
+
+.imagePool > div:hover {
+    transform: scale(1.1);
+}
