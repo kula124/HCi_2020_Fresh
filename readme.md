@@ -1,5 +1,5 @@
 
-## Uvod u React
+# Uvod u React
 U ovom poglavlju objašnjeni su ciljevi i motivacija korištenja Reactom. Razmotrit ćemo nedostatke statičnog HTML-a i CSS-a i usporedit ćemo bitne razlike između obaju pristupa i, naravno, time odgovoriti na pitanje što je React i zašto bismo se njime koristili. Proći ćemo kroz komponente i napravti jednostavnu stranicu u HTML-u i Reactu i usporedit ćemo pristupe.
 ### Što je ReactJS?
 Definirajmo ga. ReactJS je Javascript biblioteka (library) koja se koristi za izradu interaktivnih elemenata na web-stranicama te kombiniranjem tih elementata izrađuje se i cijela stranica. Pod pretpostavkom da je poznato što je Javascript jezik, Javascript biblioteka je gotov Javascript kod napisan na način da ga je lako uključiti u projekt i koristiti. Koristi se da se spriječi izmišljanje "tople vode" poput običnih animacija, auto-complete tražilica, sortiranja, mapiranja i sličnoga. ReactJS biblioteka omogućuje korištenje JS funkcijama za pisanje HTML koda. Iako na prvu zvuči nezgrapno, koristi se posebna sintaksa koja se zove JSX (Javascript extension) za postizanje ove funkcionalnosti.
