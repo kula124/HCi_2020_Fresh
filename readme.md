@@ -1,9 +1,9 @@
 
 # Uvod u React
 U ovom poglavlju objašnjeni su ciljevi i motivacija korištenja Reactom. Razmotrit ćemo nedostatke statičnog HTML-a i CSS-a i usporedit ćemo bitne razlike između obaju pristupa i, naravno, time odgovoriti na pitanje što je React i zašto bismo se njime koristili. Proći ćemo kroz komponente i napravti jednostavnu stranicu u HTML-u i Reactu i usporedit ćemo pristupe.
-### Što je ReactJS?
+## Što je ReactJS?
 Definirajmo ga. ReactJS je Javascript biblioteka (library) koja se koristi za izradu interaktivnih elemenata na web-stranicama te kombiniranjem tih elementata izrađuje se i cijela stranica. Pod pretpostavkom da je poznato što je Javascript jezik, Javascript biblioteka je gotov Javascript kod napisan na način da ga je lako uključiti u projekt i koristiti. Koristi se da se spriječi izmišljanje "tople vode" poput običnih animacija, auto-complete tražilica, sortiranja, mapiranja i sličnoga. ReactJS biblioteka omogućuje korištenje JS funkcijama za pisanje HTML koda. Iako na prvu zvuči nezgrapno, koristi se posebna sintaksa koja se zove JSX (Javascript extension) za postizanje ove funkcionalnosti.
-### JSX i HTML
+## JSX i HTML
 JSX izrazi zapravo su pozivi JS funkcija koje onda vraćaju HTML kod. JSX izrazi iz tog su razloga napravljeni da izgledaju isto kao HTML kako bi se smanjila zbunjenost, no bitno je znati da se ni u jednom trenutku tijekom korištenja Reactom **ne** piše HTML kod nego Javascript. Primjer:
 ```jsx
 function helloDiv () {
@@ -72,7 +72,7 @@ Uočimo da nam treba okidač za funkciju, u ovom slučaju *onLoad* iako može bi
 
 Sve je to slično ako se React koristi na ovaj način. Ono gdje React briljira jest mogućnost podjele stranice na logičke cjeline i elemente. Zatim, moguće je stvoriti vlastite "HTML tagove" koji predstavljaju te cjeline (zapravo je riječ o JSX tagovima). Takve su cjeline samostalne i mogu se koristiti više puta na stranici. Takve se cjeline zovu __komponente__ (__Components__) i predstavljaju osnovnu gradivnu jedinicu ReactJS-a te ono što ga čini moćnim alatom za izradu *web*-sučelja.
 
-###  React components
+##  React components
 Svaku *web*-stranicu možemo podijeliti na logičke cjeline, tj. komponente. React nam omogućuje da svaku od komponenti napišemo kao zaseban JSX tag koji se na kraju sastoji od poznatih HTML tagova.
 
 ![Splitting webpage into components](https://github.com/n00ne1mportant/HCI_2021/blob/master/Res/componentsDiagram.png?raw=true)
@@ -89,7 +89,7 @@ Hijerarhijski:
     - Gumb
 
 Sad ćemo prezentirati istu stranicu napisanu u ReactJS-u. Svaka od navedenih komponenti sastojat će se od JSX koda. Budući da su _Heading_ i _Lista_ na istoj razini u hijerarhiji, nije bitan redoslijed njihova definiranja. Za ostale je komponente bitno. Kreće se od zadnjeg elementa, a to je _Button_.
-#### Button
+### Button
 Sastoji se od 2 elemenata: _div_ i _paragraf_. Paragraf sadržava text. Budući da je text u našem slučaju "Delete" ili "Edit", te dvije opcije bit će _zakucane_, a programer može birati što će biti prikazano tako da prosljedi tip gumba. Također, vidimo i da se mijenja boja pozadine ovisno o tipu ("Delete" -> crevna, "Edit"-> plava) te boja teksta koja je bijela ili crna.
 
 Dakle, 3 su promjenjiva svojstva: tekst, boja pozadine i boja teksta. Tekst i boja pozadine ovise o tipu gumba, a boja teksta ovisi o tome što želimo. To ćemo definirati 2 parametrima: tipom i bojom (type, textColor).
@@ -175,7 +175,7 @@ const Button = ({type, textColor}) => {
 }
 ```
 Pređimo sad na osobnu karticu.
-#### PersonCard
+### PersonCard
 Za prikaz osobe treba nam njezino ime i slika. Ali također, sad kad znamo da sadržava i dva gumba, trebaju nam svojstva i za njih (njihov tip i boja teksta kao što je definirano iznad). Budući da imamo 2 gumba, trebaju nam 2 takva objekta. Možemo koristiti i jedan objekt koji sadrži oboje, ali ići ćemo sa 2 u ovom primjeru.
 
 - Ime i prezime
@@ -234,7 +234,7 @@ const PersonCard = ({imgSrc, fullname, firstButtonProps, secondButtonProps}) => 
   )
 }
 ```
-#### VerticalListContainer
+### VerticalListContainer
 Ovo je lista koja sadržava elemente *PersonCard*. Ona prima poseban parametar koji se uvijek šalje u Reactu, a to je **children**. On sadržava komponente unutar neke komponente i koncept je koji dolazi iz čistog HTML-a:
 ```html
 <section>
@@ -261,7 +261,7 @@ const VerticalListContainer = (props) => {
 }
 ```
 Mogli smo izvući *children* iz *props* kao i prije: `const VerticalListContainer = ({children}) => ...`. Onda ne bismo trebali `props.children` nego samo `children`. Ali ostavljeno je ovako da se vidi i drugačiji pristup.
-#### Heading
+### Heading
 Heading je samostalan i ne prima props iz vanka. Nećemo ga puno komentirati, osim što koristi dva stila što radi na isti način kao i jedan. Kod:
 ```jsx
 const Heading = () => {
@@ -281,7 +281,7 @@ const Heading = () => {
   )
 }
 ```
-#### Rezultat
+### Rezultat
 Sad imamo sve djelove pulze te ih trebamo samo složiti skupa. Definirat ćemo *App* komponentu. Ona će sadržavati sve druge komponente i iscrtat ih. Koristeći *React.createElement* funkciju iscrtat ćemo App u DOM. Naš fokus je *App* koponenta:
 ```jsx
 const App = () => {
@@ -387,5 +387,5 @@ const App = () => {
 ```
 
 Puni kod je [ovdje](https://jsfiddle.net/6fe7aj4u/27/)
-### React vs HTML
+## React vs HTML
 Kao što vidimo, React se fokusira na pojedine komponente. Komponente se mogu koristiti više unutar stranice. Slične komponente realiziraju se i razlikuju kroz parametre koje primaju. Čisti HTML ovo ne podržava. Njegov je ekvivalent copy-paste. Stilovi se uvijek pišu globalno sa HTML-CSS-om. Kod Reacta može pisati stilove za pojedine komponente unutar komponente. Iako smo se koristili *inline* stilovima u ovom primjeru, isto se može postići s CSS datotekama. Tako se inače radi u Reactu, ovo što je pisano ovdje samo je koncept. Ali taj je koncept da pišemo HTML i JS za pojedine komponente. HTML i JS definiraju strukturu i logiku (ponašanje) komponente. Zatim tu komponentu stiliziramo CSS-om isto na razini komponente. Komponente možemo dijeliti s drugima i njima se koristiti u drugim projektima. Svaka komponenta treba biti maksimalno samostalna. Ovaj modularan pristup Reacta izvor je njegove moći i razlog zbog kojeg je postao popularan. Ali, ovo je samo površina. Nismo još ušli u prirodu Reactiva (brz i efikasan odgovor na promjene i događaje, odakle mu dolazi ime), dohvaćanje podataka sa servera, učitavanje slika, podataka uz loading spinere i slično što je ono gdje je React zbilja jak. Proći ćemo kroz sve te stvari i kroz GatsbyJS: framework koji se bazira na ReactJS-u i olakšava korištenje njime za statične stranice poput ove koju smo pisali danas (da, može i lakše od ovog uz Gastby). Statičke stranice nisu jača strana Reacta. U sljedećim poglavljima istražit će se zašto i uvest ćemo se u Gatsby i JS ekosustav
