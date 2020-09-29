@@ -179,14 +179,14 @@ git version 2.23.0.windows.1
   `localhost:8000` </br>
     
   <div align="center">
-    <img src="https://github.com/n00ne1mportant/HCI_2021/blob/intro-gatsby/Res/address_bar.png?raw=true"/>
+    <img src="./Res/address_bar.png"/>
   </div>
   
   Trebali bismo vidjeti "Hello world" Gastby stranicu.</br>
 
 
   <div align="center">
-    <img src="https://github.com/n00ne1mportant/HCI_2021/blob/intro-gatsby/Res/gatsbyHelloWorld.png?raw=true"/>
+    <img src="./Res/gatsbyHelloWorld.png"/>
   </div>
     
   Detaljne upute o instalaciji mogu se naći na službenoj [stranici](https://www.gatsbyjs.org/docs/quick-start/).
@@ -203,7 +203,7 @@ git version 2.23.0.windows.1
 
   Nakon instalacije, otvorimo folder koji sadržava naš projekt. <br/>
     
- ![file -> open folder](https://github.com/n00ne1mportant/HCI_2021/blob/intro-gatsby/Res/VSCode_open.png?raw=true)
+ ![file -> open folder](./Res/VSCode_open.png)
     
   <br/>
     
@@ -211,7 +211,7 @@ git version 2.23.0.windows.1
     
   <br/>
     
-  ![project structure](https://github.com/n00ne1mportant/HCI_2021/blob/intro-gatsby/Res/VSCode_files.png?raw=true)
+  ![project structure](./Res/VSCode_files.png)
     
   <br/>
     
@@ -279,7 +279,7 @@ Sad prelazimo s nebitnih i manje bitnih stvari na bitne. Folder *src* sadržava 
     
   <br/>
     
-  ![srouce files](https://github.com/n00ne1mportant/HCI_2021/blob/intro-gatsby/Res/VSCode_src.png?raw=true)
+  ![srouce files](./Res/VSCode_src.png)
     
   <br/>
     
