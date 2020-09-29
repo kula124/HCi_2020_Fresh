@@ -1,0 +1,44 @@
+.footer {
+    background-color: #333;
+    padding: 40px;
+    display: flex;
+    color: white;
+    font-size: 16px;
+}
+
+.footer .address {
+    list-style: none;
+    display: flex;
+    flex-flow: column;
+    text-align: center;
+    border-right: 1px #999 solid;
+    padding-right: 10px;
+}
+
+.title {
+    font-size: 28px;
+    margin-bottom: 30px;
+    margin-top: 10px;
+}
+
+.phone {
+    margin: 11px 0;
+}
+
+.navigation {
+    padding-top: 15px;
+    list-style: none;
+    display: flex;
+    text-transform: uppercase;
+}
+
+.navigation li {
+    margin: 0 10px;
+    font-size: 16px;
+    height: fit-content;
+}
+
+.navigation li:hover {
+    border-bottom: 1px solid white;
+    cursor: pointer;
+}
