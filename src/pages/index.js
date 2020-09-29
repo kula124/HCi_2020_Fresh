@@ -1,15 +1,14 @@
 import React from "react"
 
-import ContactBar from '../components/contactBar'
-import NavigationHeader from '../components/NavigationHeader'
-import Footer from '../components/Footer'
+import HeaderFooterLayout from "../layouts/headerFooter"
+import TitlePage from '../modules/TitlePage'
+import PageContent from "../modules/PageContent"
 
 const IndexPage = () => (
-  <main>
-    <ContactBar />
-    <NavigationHeader activeTab = 'Home' />
-    <Footer />
-  </main>
+  <HeaderFooterLayout activeTab="Home">
+    <TitlePage />
+    <PageContent />
+  </HeaderFooterLayout>
 )
 
 export default IndexPage

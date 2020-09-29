@@ -1,0 +1,56 @@
+.inquiryBlock {
+    background-color: #333;
+    margin: 0 auto;
+    color: white;
+    display: flex;
+    height: 44px;
+    padding: 40px 12.5%;
+    width: 75%;
+    min-width: 828.797px;
+    justify-content: space-evenly;
+}
+
+.inquiryBlock .dateBoxContainer {
+    display: flex;
+    align-items: center;
+}
+
+.inquiryBlock .dateBoxContainer span, img {
+    height: fit-content;
+}
+
+.inquiryBlock .dateBoxContainer img {
+    padding: 12px;
+    border-right: 1px solid black;
+    filter: invert();
+}
+
+.inquiryBlock .dateBoxContainer .dateBox {
+    height: 44px;
+    width: 225px;
+    display: flex;
+    border: 1px solid white;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: 23px;
+}
+
+.inquiryBlock .dateBoxContainer .dateBox span {
+    margin: 0 auto;
+    margin-left: 10px;
+}
+
+.inquiryBlock button {
+    height: 44px;
+    width: fit-content;
+    background: black;
+    color: white;
+    padding: 11px 40px;
+    font-size: 16px;
+    border: none
+}
+
+.inquiryBlock button:hover {
+    cursor: pointer;
+    border: white 1px solid;
+}
