@@ -189,22 +189,23 @@ Funkcije mogu biti const i let.
  
 **Import** i **Export** se koriste za referenciranje objekata i funkcija između
 različitih JavaScript datoteka. *Import* je ekvivalent **#include** direktive
-u C jeziku. *Export* definira što se može uvesti s *Import* naredbom. Pogledajmo primjer:
- 
+u C jeziku. *Export* definira što se može uvesti s *Import* naredbom.  
+Za ove primjere trebamo online editor koji podržava više datoteka i ES6 *module* sintaksu. To je [CodeSandbox](https://codesandbox.io/s/elegant-hooks-t175c). Link vas vodi na pripremljen workspace. 
+
 ```javascript
 // unutar say.js datoteke
 function sayHi(user) {
   console.log(`Hello, ${user}!`)
 }
- 
+
 function sayBye(user) {
   console.log(`Bye, ${user}!`)
 }
- 
+
 function sayNop(user) {
   console.log(`Nope, ${user}, won't work!`)
 }
- 
+
 export {sayHi, sayBye}
 //
 /************************/
@@ -216,21 +217,21 @@ sayHi('Ante')
 sayBye('Mate')
 // Bye, Mate!
 sayNope('Jure')
-// error: sayNope is not a function
+// error: sayNope is not defined
 ```
- 
+
 *Export* smo pozvali nad novim objektom kojem smo pridružili *sayHi* i *sayBye*, ali mu **nismo** pridružili *sayNope* iako smo ga definirali unutar datoteke. Poziv te varijable dat će runtime error jer nije definirana (točnije, nismo je otkrili za *Import*).
- 
+
 Sad kad je opći koncept jasan, pokrit ćemo različite načine *import / export* naredbi.
- 
+
 #### Po varijabli <a name="ie-var"></a>
  
 Možemo exportat varijable jednu po jednu prilikom definicije. Onda, kao u primjeru iznad, možemo importat varijable koje želimo:
  
 ```javascript
 // say.js
-export function sayHi(name) { ... }
-export const say = (what, toWhom) => { ... }
+export function sayHi(name) { console.log(`Hi, ${name}`) }
+export const say = (what, toWhom) => { console.log(`${what}, ${toWhom}`) }
 export const thisIsAConstValue = "I will never change"
 //
 /***************/
@@ -240,16 +241,16 @@ import {say, thisIsAConstValue} from './say.js'
 say(thisIsAConstValue, 'Ante')
 // I will never change, Ante
 ```
- 
+
 Primijetite dva načina definiranja funkcije. Poželjno je naviknuti se na lambda način (=>).  
 Ime varijable u ovom primjeru izgleda dosta nezgrapno. Za to možemo koristiti **as** ključnu riječ:
- 
+
  ```javascript
 // say.js
-export function sayHi(name) { ... }
-const say = (what, toWhom) => { ... }
+export function sayHi(name) { console.log(`Hi, ${name}`) }
+export const say = (what, toWhom) => { console.log(`${what}, ${toWhom}`) }
 export const thisIsAConstValue = "I will never change"
- 
+
 export {say as s}
 //
 /***************/
@@ -259,31 +260,31 @@ import {s, thisIsAConstValue as constVal} from './say.js'
 s(constVal, 'Ante')
 // I will never change, Ante
 ```
- 
+
 ### Classes <a name="classes"></a>
- 
+
 Klase su jednostavne i prate sličnu sintaksu kao i drugi jezici:
- 
+
 ```js
 class User {
- 
+
   constructor(name) {
     this.name = name;
   }
- 
+
   sayHi() {
     alert(this.name);
   }
- 
+
 }
- 
+
 // Usage:
 let user = new User("John");
 user.sayHi();
 ```
- 
+
 Ono što je zanimljivo je uporaba u Reactu:
- 
+
 ```jsx
 class Car extends React.Component {
   constructor() {
@@ -295,7 +296,9 @@ class Car extends React.Component {
   }
 }
 ```
- 
+
+Link za testirati: [JSFiddle](https://jsfiddle.net/hq3rwmtg/)
+
 Vidimo `extends` i `super()`. U nekim jezicima (npr. C#) `super` je `base`.
 Očito je da `Car` nasljeđuje od `React.Component` i poziva `super()` što je
 konstruktor `React.Component` klase (bazna ili super klasa) koja mu onda stvara
