@@ -25,107 +25,20 @@ Kroz vježbe koje slijede izradit ćemo stranicu segment po segment počevši od
 
 Krenimo!
 
-## React concepts: Export / Import i Styling
+## React concepts: Styling
 
-U prvim vježbama proći ćemo kroz *import* i *export* naredbe za rad s bibliotekama, vlastitim i vanjskim. Zatim prelazimo na ispravan način stiliziranja komponenti.
-
-### Import / Export <a name="ie"></a>
-
-**Import** i **Export** se koriste za referenciranje objekata i funkcija između različitih JavaScript datoteka. *Import* je ekvivalent **#include** direktive u C jeziku. *Export* definira što se može uvesti sa *Import* naredbom.  
-Za pokrenuti sljedeći primjer, dodajmo dvije datoteke u root direktorij bilo gdje (bitno je samo da su obe u istom direktoriju). Prva neka bude `main.mjs`, a druga `say.mjs`. Kod pokrećemo sa `node --expertimental-modules main.mjs`.
-
-> Neka vas ne zbunjuje .mjs. Korištenje nove Import / Export sintakse se još vodi kao
-> "expreimental" pa je potrebno to naglasiti sa ".mjs" ekstenzijom koja označava
-> javascript module i `--expertimental-modules` flagom koji govori Nodeu da ga koristi. U ReactJS-u je 100% podržano
-
-Pogledajmo primjer:
-
-```javascript
-  // unutar say.js datoteke
-  function sayHi(user) {
-    console.log(`Hi, ${user}!`)
-  }
-
-  function sayBye(user) {
-    console.log(`Bye, ${user}!`)
-  }
-
-  function sayNop(user) {
-    console.log(`Nope, ${user}, won't work!`)
-  }
-
-  export {sayHi, sayBye}
-  //
-  /************************/
-  //
-  //unutar main.js datoteke u istom folderu
-  import {sayHi, sayBye} from './say.js'
-  
-  sayHi('Ante')
-  // Hello, Ante!
-  sayBye('Mate')
-  // Bye, Mate!
-  sayNope('Jure')
-  // error: sayNope is not a function
-```
-
-*Export* smo pozvali nad novim objektom kojem smo pridružili *sayHi* i *sayBye*, ali mu **nismo** pridružili *sayNope* iako smo ga definirali unutar datoteke. Poziv te varijable dat će runtime error jer nije definirana (točnije, nismo je otkrili za *Import*).
-
-Sad kad je opći koncept jasan, pokrit ćemo različite načine *import / export* naredbi.
-> Možete izbrisati `main.mjs` i `say.mjs` ako ste ih stvorili
-
-#### default export
-
-Postoji i **default** *export / import*. Dosta se često koristi u Reactu za *export* komponenti. Ako se ne definira varijabla koja se uvozi (unutar vitičastih zagrada), uvozi se varijabla koja je *default*.
-Primjer:
-
-```jsx
-// components/component/index.js
-export const constant = 10
-
-const Component = () => {
-  <div>
-    <p>This is a constant {constant} </p>
-  </div>
-)
-
-export default Component
-```
-
-```jsx
-import myComponent, {constant} from './components/component/index.js'
-// ako postoji index.js on se uzima automatski
-// pa nije potreban u pathu iznad
-// Primijetimo da myComponent nije u {} znači da je on *default* export
-// Konvencija je da je komponenta uvijek default i da se koristi isto ime
-// Znači ispravnija verzija naredbe je:
-// import Component, {constant} from './components/component'
-
-const HigherComponent = props => {
-// logika i definicije
-  return (
-    <div>
-    ...
-      <myComponent />
-    ...
-    </div>
-  )
-}
-
-export default HigherComponent
-```
-
-[Izvor](https://javascript.info/import-export) i [reference](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/export). ES6 [službena finalna sintaksa](https://2ality.com/2014/09/es6-modules-final.html)
+Dosad ste možda vidjeli styling koristeći `style` property na komponenti. To je ekvivalent pisanju in-line CSS-a.  
+Iako to ima svoje primjene na nekim mjestima, generalno koriste vanjske CSS datoteke. Za razliku od CSS-a u običnom HTML-u,
+CSS datoteke u Reactu mogu biti modularne: vidljive samo komponenti koja ih poziva, znači ne djeluju na druge komponente.
 
 ### Styling sa CSS modulima <a name="style"></a>
 
-Dosad smo se upoznali s inline stilovima pomoću `style` atributa.
-Sad kad budemo pisali "ozbiljan" kod nećemo više tako raditi. Koristit ćemo `.css` datoteke za definiranje stilova komponenti. Razlika je što će svaka komponenta imati svoj `.js` i `.css` dio. Kod pisanja statičkih stranica čistim HTML-om i CSS-om, pišemo jednu ili više CSS datoteka koji onda djeluju globalno na stranici. Što znači da moramo paziti da se ime klase ne ponovi u definiciji CSS-a, također bitan je poredak klasa i hijerarhija inače se klase neće ispravno primjeniti (pa se pribjegava zloglasnoj **!important** direktivi).  
-Kada bi svaka komponenta imala svoj stil ne bi bilo tih problema. Takav prisup zove se **modularan**, a takave CSS datoteke **css moduli**.
+Rekli smo da ćemo koristiti `.css` datoteke za definiranje stilova komponenti. Svaka će komponenta imati svoj `.js` i `.css` dio. Kod pisanja statičkih stranica čistim HTML-om i CSS-om, pišemo jednu ili više CSS datoteka koje onda djeluju globalno na stranici. Što znači da moramo paziti da se ime klase ne ponovi u definiciji CSS-a, također bitan je poredak klasa i hijerarhija inače se klase neće ispravno primjeniti (pa se pribjegava zloglasnoj **!important** direktivi).  
+Kada bi svaka komponenta imala svoj stil ne bi bilo tih problema. Takav pristup zove se **modularan**, a takve CSS datoteke **css moduli**.
 
 #### Zašto modularan pristup
 
-Cilj modularnog pristupa je uvijek isti: razbijanje koda na komponente zbog lakšeg snalaženja, pisanja i održavanja. Poanta je postići da svaka komponenta ima svoju logiku i izgled definiran u JavaScriptu, a stil definiran u *css* datoteci. Problem koji nastaje je taj što css uvijek djeluje na cijeli HTML dokument što znači da će postojati kolizija u imenovanju klasa. Ako imamo klasu koja se zove `.button` i mijenjamo je unutar `.css` datoteke i imamo više `.button` elementa unutar HTML dokumenta, svi oni će biti pogođeni promjenom. Ako to radimo unutar `.module.css` datoteka, bit će pogođeni samo elementi unutar te komponente. To se naziva **style scoping**.
+Cilj modularnog pristupa je uvijek isti: razbijanje koda na komponente zbog lakšeg snalaženja, pisanja i održavanja. Poanta je postići da svaka komponenta ima svoju logiku i kostur definiran u JavaScriptu, a stil definiran u *css* datoteci. Problem koji nastaje je taj što css uvijek djeluje na cijeli HTML dokument što znači da će postojati kolizija u imenovanju klasa. Ako imamo klasu koja se zove `.button` i mijenjamo je unutar `.css` datoteke i imamo više `.button` elementa unutar HTML dokumenta, svi oni će biti pogođeni promjenom. Ako to radimo unutar `.module.css` datoteka, bit će pogođeni samo elementi unutar te komponente. To se naziva **style scoping**.
 
 Sa css modulima osigurava se da:
   - definicije djeluju samo na dotičnu komponentu i drugo ništa.
