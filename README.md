@@ -1,189 +1,389 @@
-# HCI vježbe
 
-Ovaj repozitorij sadrži vježbe za izradu ReactJS stranice koristeći Gatsby.  
-Sastoji se od dokumentacije i uputa za izradu demo web stranice.  
-Bitno je napomenuti da se vježbe **NEĆE BODOVATI** i nisu zamjena za projekt iz HCI kolegija (bodovat će se samo zalaganje).
-
-**Na ovom kolegiju potrebno je osmisliti, dizajnirati i izraditi funkcionalnu web stranicu koristeći Gatsby uz ReactJS**.
-
-Ovaj repozitorij služi kao pomoć pri tome **ne kao zamjena**.
-
-## Kako koristiti ovaj repozitorij
-
-Ovaj repozitorij je zamišljen kao kolekcija resursa za samostalno učenje ReactJS-a i razvoja web aplikacija. Repozitorij se sastoji od više brancheva
-gdje svaki sadrži veliki korak prema gotovoj web stranici. Svaki commit je koračić na tom putu.  
-
-### Popis brancheva
-
-Repozitorij se sastoji od 6 *project* brancheva, 2 *intro* brancha, jednog ili više *bonus* brancha (koji će se dodavati po potrebi) i naravno **master** brancha koji upravo gledate.
-
-- **master**: sadrži gotov cjeloviti kod stranice, nastao je kao **merge** svih *project* brancheva
-- **project**: sadrže dio koda koji vodi prema cjelovitoj stranici
-  - praktični dio vježbi gdje ćemo pisati kod: *hands on* pristup
-  - svaki koncept korišten u vježbama je pokriven teorijom
-  - svaki branch uvodi novi **React koncept** i **segment stranice**
-- **intro**: uvodni dio, neće biti pokriven vježbama, ali ćemo se referirati na njega. Služi kao uvod u ono što ćemo raditi
-- **bonus**: dodatni sadržaj koji pokriva ono što može predstavljati problem (trenutno u izradi *Vodič kroz git*, *Vodič kroz CSS i SASS*, *VSCode unleashed*)
-
-Kroz vježbe stvorit ćete svoj repozitorij i pratiti upute branch po branch.  
-Za projekt ćete imati odvojen repozitorij nevezan s ovim. To će biti vaš samostalan rad.
-
-### Navigacija kroz repozitorij
-
-Primijetit ćete da se svaki branch sastoji od commitova koji imaju ista imena kao i u uputama. Razlog je taj što je sav kod u repozitoriju napisan ručno i dodan kroz commitove. To znači da u bilo kojem trenutku možete provjeriti kod u bilo kojem commitu pomoću `git checkout hashCommita`. To će vas odvesti u [`detached head state`](https://medium.com/zero-to-code/what-is-the-detached-head-state-in-git-4bd47ed86bb4) gdje možete vidjeti točno kako izgleda projekt u tom danom trenutku. To bi trebalo biti korisno za traženje grešaka. Također, možete [izvući novi branch]((https://www.atlassian.com/git/tutorials/using-branches/git-checkout)) iz tog commita i testirati stvari u njemu (u *detached head stateu* napravite `git branch`).
-
-## Sadržaj repozitorija
-
-Intro branchevi vas uvode u React i JavaScript. Project branchevi sadrže
-primjenu tih znanja kroz kod. Na [kraju dokumenta]() dan je popis literature korištene u svakom branchu.
-
-### intro-js
-
-Branch sadrži upoznavanje s Ecma Scriptom, Babelom i novim standardima JavaScripta koji se koriste u modernom razvoju web aplikacija. Objašnjeno je
-što su transpileri i zašto se koriste. Kroz primjere prikazani su novi koncepti
-i sintaksa koja se koristi u JavaScriptu. Na kraju je dan popis te sintakse i linkovi na vanjske resurse korištene u vježbama:
-
-* __ES7+ standardi__ [[link](https://medium.com/engineered-publicis-sapient/javascript-es6-es7-es10-where-are-we-8ac044dfd964)]
-* __Babel__ [[link](https://babeljs.io/)]
----
-* __let - const__ [[link](https://github.com/n00ne1mportant/HCi_2020_Fresh/blob/intro-js/readme.md#lc)]
-* __arrow functions__ [[link](https://github.com/n00ne1mportant/HCi_2020_Fresh/blob/intro-js/readme.md#af)]
-* __export and imports__ [[link](https://github.com/n00ne1mportant/HCi_2020_Fresh/blob/intro-js/readme.md#ie)]
-* __Classes__ [[link](https://github.com/n00ne1mportant/HCi_2020_Fresh/blob/intro-js/readme.md#classes)]
-* __Spread and Rest__ [[link](https://github.com/n00ne1mportant/HCi_2020_Fresh/blob/intro-js/readme.md#rest-spread)]
-* __Array iterators__ [[link](https://github.com/n00ne1mportant/HCi_2020_Fresh/blob/intro-js/readme.md#ai)]
-
-### intro-react
-
-Ovaj dokument pokriva brzi *crash course* uvod u React. Izrađuje se jednostavna web stranica koristeći tradicionalni čisti HTML i CSS, a zatim ista stranica koristeći ReactJS. Ispod su linkovi na kod jedne i druge stranice:
-
-- **React Components** [[link](https://reactjs.org/docs/thinking-in-react.html)]
-- **Docs** [[link](https://reactjs.org/docs/getting-started.html)]
----
-- **HTML stranica** [[link](https://jsfiddle.net/8c9dm7zq/4/)]
-- **ReactJS stranica** [[link](https://jsfiddle.net/6fe7aj4u/27/)]
-
-### project-0--gatsby-setup
-
-Postavljanje Gatsby alata, instalacija potrebnih paketa (git, node), predstavlja
-prve vježbe koje ćemo raditi.
-
-- **Node ekosustav [[link](https://www.altexsoft.com/blog/engineering/javascript-ecosystem-38-tools-for-front-and-back-end-development/)]**
----
-- **Node** [[link](https://github.com/n00ne1mportant/HCi_2020_Fresh/blob/project-0--gatsby-setup/readme.md#nodejs)]
-- **git** [[link](https://github.com/n00ne1mportant/HCi_2020_Fresh/blob/project-0--gatsby-setup/readme.md#git)]
-
-### project-1--contact-bar
-
-U prvim vježbama prolazimo kroz **CSS styling** u Reactu. Radimo prvu komponentu.  
-Segment koji radimo je `ContactBar` komponenta:
+# Git kolaboracija
 
 <p align="center">
-  <img src="https://github.com/n00ne1mportant/HCi_2020_Fresh/raw/project-1--contact-bar/readmeRess/sc2.png">
+ <img src="https://miro.medium.com/max/700/0*IwvZRrlEF-mTF9Vp" />
 </p>
 
-Sadržaj:
-- **Styling** [[link](https://github.com/n00ne1mportant/HCi_2020_Fresh/tree/project-1--contact-bar#styling-sa-css-modulima-)]
-- **Commits** [[link](https://github.com/n00ne1mportant/HCi_2020_Fresh/tree/project-1--contact-bar#sadr%C5%BEaj-commitova-)]
+<!-- vscode-markdown-toc -->
+* [Postavljanje repozitorija i dodavanje suradnika](#Postavljanjerepozitorijaidodavanjesuradnika)
+	* [Vlasnik: Postavljanje repozitorija i dodavanje suradnika](#Vlasnik)
+	* [Suradnik: dodati remote i napraviti pull](#Suradnik)
+		* [Prvi pristup (clone)](#Prvipristupclone)
+		* [Drugi pristup (fetch / checkout)](#Drugipristupfetchcheckout)
+* [Temeljne git naredbe](#Temeljnegitnaredbe)
+	* [git add  i git commit](#gitaddigitcommit)
+	* [git branch](#gitbranch)
+	* [git merge](#gitmerge)
+	* [git push and pull](#gitpushandpull)
+* [Git workflow](#Gitworkflow)
+	* [Git workflow: single master](#Gitworkflowsinglemaster)
+	* [Git workflow: feature branches](#Gitworkflowfeaturebranches)
+* [Git i VSCode](#GitiVSCode)
+	* [VScode: add i commit](#VScodeaddicommit)
+	* [VSCode: checkout and merge](#VSCodecheckoutandmerge)
+	* [VSCode: conflict resolution](#VSCodeconflictresolution)
+* [Savjeti za rad](#Savjetizarad)
+* [Korisni resursi](#Korisniresursi)
 
-### project-2--navigation
+<!-- vscode-markdown-toc-config
+	numbering=false
+	autoSave=true
+	/vscode-markdown-toc-config -->
+<!-- /vscode-markdown-toc -->
 
-Koncept pokriven u ovim vježbama je `array.map()`.
-Segment koji radimo je `NavigationHeader` komponenta.
+Kad počnemo raditi na projektu, jedna osoba će stvoriti online repozitorij gdje će biti kod,
+a ostali će imati lokalne verzije koda. Svako malo, kako projekt bude
+napredovao dodavat će se novi kod kroz `push` i `merge` naredbe. Ovdje ćemo objasniti kako će to ići.  
+Postoji više pristupa kolaborativnom radu, ali mi ćemo objasniti 2.
+
+## <a name='Postavljanjerepozitorijaidodavanjesuradnika'></a>Postavljanje repozitorija i dodavanje suradnika
+
+Svi online repozitorij ima vlasnika i suradnike. Može imati i kontributore, ali njih ćemo zasad zanemariti (specifičniji su za open-source projekte). Za početak rada vlasnik treba inicijalizirati repo i dodati suradnike.  
+Suradnici trebaju samo klonirati repo ili dodati remote kroz git. Objasnit ćemo oba pristupa.
+
+### <a name='Vlasnik'></a>Vlasnik: Postavljanje repozitorija i dodavanje suradnika
+
+Nakon što je stvoren repozitorij, osoba koja je vlasnik treba učiniti dvije stvari:
+- Dodati master branch kroz prvi commit
+- Dodati kolege kao kolaboratore
+
+To se radi na GitHubu. Nakon što je repozitorij stvoren, potrebno je lokalno stvoriti projekt kao što je opisano u [prvim vježbama]().
+
+Nakon što se inicijalizira projekt koristeći `gatsby new`, dodaje se `remote` i radi prvi push:
+
+```bash
+$ git remote add origin linkNaNoviPrazanRepo
+$ git push -u origin master
+```
+Sada, koristeći GitHub sučelje, dodaju se kolaboratori:
 
 <p align="center">
-  <img src="https://github.com/n00ne1mportant/HCi_2020_Fresh/raw/project-2--navigation/readmeRess/header3.png">
+ <img src="./readmeRess/github_colab.png" />
 </p>
 
-Sadržaj:
-- **.map()** [[link](https://github.com/n00ne1mportant/HCi_2020_Fresh/tree/project-2--navigation#reactjs-concept-array-transform-with-map-)]
-- **Commits** [[link](https://github.com/n00ne1mportant/HCi_2020_Fresh/tree/project-2--navigation#sadr%C5%BEaj-git-commitova-)]
+Prvo idete na ![gear-icon](./readmeRess/gear.svg) **Settings** pa **Manage access** i onda na **Invite a collaborator**.
 
-### project-3--content-images
+Kad kolaborator prihvati, pojavit će se ispod (vidite na slici da ja imam jednog kolaboratora). Tada i on može raditi *push* i *pull* commitova na vaš repo (to je moguće ograničiti, ali nema potrebe u našem primjeru).
 
-Koncepti pokriveni u ovim vježbama su *lazy loading*, *layout* i *moduli*.
-Segment koji radimo je tijelo stranice koje se sastoji od slika i teksta.
+### <a name='Suradnik'></a>Suradnik: dodati remote i napraviti pull
+
+Suradnik se treba samo spojiti na GitHub repo vlasnika. To se može napraviti na dva načina (jednako su laka... bar ja mislim):
+
+- Suradnik ode na GitHub link repozitorija, kopira ga i klonira repo
+- Suradnik doda remote i napravi fetch
+
+#### <a name='Prvipristupclone'></a>Prvi pristup (clone)
+
+Objasnimo prvi pristup. Nakon što otvorite GitHub link projekta samo ga kopirate. Link imate na dva mjesta:
 
 <p align="center">
-  <img src="https://github.com/n00ne1mportant/HCi_2020_Fresh/raw/project-3--content-images/readmeRess/vj4Composition.png">
+ <img src="./readmeRess/git_clone.png" />
 </p>
 
-Sadržaj:
-- **Layout i moduli** [[link](https://github.com/n00ne1mportant/HCi_2020_Fresh/tree/project-3--content-images#react-concept)]
-- **Commits** [[link](https://github.com/n00ne1mportant/HCi_2020_Fresh/tree/project-3--content-images#sadr%C5%BEaj-git-commitova-)]
+Kad je link kopiran, otvorite konzolu i upišete:
 
-### project-4--state-and-multipage
+```bash
+$ git clone kopiraniLink imeFoldera
+```
 
-U ovim vježbama uvodimo dodavanje novih stranica i ono što je bitno: **React state**. Također, započinjemo korištenje **NPM paketa**. Nova stranica koja se dodaje je `contact` forma. Dodaje se i *lazy loaded BackgroundImage*.
+Ime foldera je opcionalno. Ako ga ne stavite, git će dati ime repozitorija (na ovom primjeru bit će `EulerProject`).
 
-<p align="center">
-  <img src="https://github.com/n00ne1mportant/HCi_2020_Fresh/raw/project-4--state-and-multipage/readmeRess/ContactPlan.png">
-</p>
+Objasnimo drugi način
 
-Sadržaj:
-- **State** [[link](https://github.com/n00ne1mportant/HCi_2020_Fresh/tree/project-4--state-and-multipage#react-concept)]
-- **NPM** [[link](https://github.com/n00ne1mportant/HCi_2020_Fresh/tree/project-4--state-and-multipage#npm-i-node_modules-)]
-- **Background image** [[link](https://github.com/n00ne1mportant/HCi_2020_Fresh/tree/project-4--state-and-multipage#4)]
-- **Commits** [[link](https://github.com/n00ne1mportant/HCi_2020_Fresh/tree/project-4--state-and-multipage#sadr%C5%BEaj-git-commitova-)]
+#### <a name='Drugipristupfetchcheckout'></a>Drugi pristup (fetch / checkout)
 
-### project-5--cms
+Otvorite folder gdje želite stvoriti repozitorij u terminalu.
+Sad pišete sljedeće četiri naredbe jednu za drugom (ponovno vam treba link na repo):
 
-U ovim vježbama spajamo se na *Instagram* koristeći Gatsbyjev `graphql` API.  
-Uvodi se pojam **CMS** i objašnjava se kako radi i zašto se koristi.
+```bash
+$ git init
+$ git remote add origin kopiraniLinkNaRepo
+$ git fetch origin
+$ git checkout master
+```
 
-<p align="center">
-  <img src="https://github.com/n00ne1mportant/HCi_2020_Fresh/raw/project-5--cms/readmeRess/vj7composition.png">
-</p>
+Naredbe koje ste napravili iznad su zapravo naredbe koje čine [git clone](https://stackoverflow.com/questions/58577014/why-git-clone-when-i-can-do-the-same-with-git-pull-after-git-init/58577050#58577050). Znači da radite git clone ručno :)  
+Na ovaj način možete dodati branch po branch, dok git clone dodaje sve odjednom.
 
-Sadržaj:
-- **CMS** [[link](https://github.com/n00ne1mportant/HCi_2020_Fresh/tree/project-5--cms#react-concept-)]
-- **Commits** [[link](https://github.com/n00ne1mportant/HCi_2020_Fresh/tree/project-5--cms#sadr%C5%BEaj-git-commitova-)]
+To je to. U ovom trenutku imate lokalni repo spojen na remote i možete početi raditi. Kako ćete raditi objašnjeno je u sljedećem poglavlju.
 
-## Savjeti za bezbolan rad i učenje
+## <a name='Temeljnegitnaredbe'></a>Temeljne git naredbe
 
-### Raditi projekt uz vježbe
+### <a name='gitaddigitcommit'></a>git add  i git commit
 
-Ovaj kolegij će baciti puno informacija na vas jako brzo. Preporučujem da paralelno uz praćenje vježbi radite na svom projektu i pokušavate primijeniti nove stvari koje naučite kroz vježbe odmah u projekt. Neće ići lako, ali zato smo tu za pomoć. Kao i uvijek, ako se projekt odgađa do zadnjeg dana bit će jako teško pružiti adekvatan savjet i pomoć. Uz to, učenje će postati otežano zbog nastale panike.  
-Da bi se to izbjeglo potrebno je početi raditi na projektu što je to prije moguće.
+`git add` označava datoteku ili folder koji dodajete u *staging* ili tzv. *index*. Ono što je dodano u index može se commitat sa `git commit`.
 
-### Prije vježbi pročitajte teoriju (nema je puno)
-
-Svaka vježba ima teoretski dio gdje se objašnjava nešto novo što će se koristiti.  
-Također, prije početka pisanja koda dan je *layout*, tj. grafički plan komponenti koje će se pisati u vježbi. Ako pročitate taj dio prije početka vježbe, bit će vam puno lakše pratiti što se događa.  
-U prosjeku, to je oko 3 minute čitanja.
-
-### Drugi materijali, pogotovo YouTube
-
-Ovaj repozitorij je tekstualan. Kažu da je slika 1000 riječi, a video je 60 slika u sekundi.  
-Učenje je lakše kad gledate i slušate nekoga dok radi, nego kad čitate kako se to radi.  
-Svjesni smo tog nedostatka pa je uključen popis korisnih video materijala na [kraju dokumenta](#l).
-
-### Pitajte što vam nije jasno često i uporno
-
-Autor ovog repozitorija i koda je student koji je prije dvije godine počeo učiti web development. Slobodno mi se obratite kao i bilo kojem drugom studentu.  
-Konkretan odgovor na konkretno pitanje je najbolji i najbrži način da naučite nešto.  
-Iskoristite to. Manje ćete guglati.  
-Nemojte prestati pitati dok pitanje nije odgovoreno ili vam osoba koju pitate kaže "ne znam". Tad pitajte drugu osobu.
-
-## Vanjski sadržaji <a name="l"></a>
-
-Video resursi:
- - Uvod u React 2H [[YT](https://www.youtube.com/watch?v=UtIOMUQ7nWM)]
- - Uvod u Gatsby 1H [[YT](https://www.youtube.com/watch?v=6YhqQ2ZW1sc)]
- - CSS: Općenito 20min [[YT](https://www.youtube.com/watch?v=1PnVor36_40)]
- - CSS: Flexbox 15min [[YT](https://www.youtube.com/watch?v=fYq5PXgSsbE)]
+`git commit` sprema sve dodane promjene u indexu (`git add`) u **commit**. Commit je skup promjena nad datotekama. Ujedno je i gradivna jedinica git-a i git brancheva (grana).
  
- Gotov dizajn:
+### <a name='gitbranch'></a>git branch
+ 
+Ako je git commit čvor u vezanoj listi commitova, onda je branch cijela lista. Tehnički to nije baš tako, ali vizualno je jako blizu istini. Branch mijenjamo sa `git checkout` naredbom. Možemo stvoriti branch i prebaciti se na njega istovremeno sa `git checkout -b noviBranch`. Sa `git branch imeBrancha` samo stvaramo novi branch na koji se onda prebacimo sa `git checkout imeBrancha`, dakle bez `-b` flaga ako branch već postoji. Branchevi se prikazuju kao liste.  
+Vjerojatno ste vidjeli ovakve slike:
 
- - Login page 18min [[YT](https://www.youtube.com/watch?v=L5WWrGMsnpw)]
- - Login page transparent 10min[[YT](https://www.youtube.com/watch?v=slu3pImFcRI)]
- - Landing page 30min [[YT](https://www.youtube.com/watch?v=HZv8YHYUHTU)]
- ---
+<p align="center">
+  <img src="https://hackernoon.com/hn-images/1*aChmZqHLVJM5UXGkZmL8aA.png" />
+<p>
 
- Dizajn inspiracija:  
- <https://www.webdesign-inspiration.com/>
+Bitna napomena za sliku iznad. Strjelice prikazane zapravo bi trebale ići unazad jer git čuva pointer na parent, ne na child. Znači kad idete kroz commit history uvijek idete sa kraja prema početku, nikad obrnuto. Git nativno podržava koračanje unazad, ali ne podržava koračanje unaprijed (ne postoji sintaksa ni naredba za to). Ova vizualizacija je zbog jednostavnosti prikaza. Obje notacije se koriste u praksi pa neka vas ne zbune strjelice u suprotnom smjeru ako ih vidite.
 
- Gotov kod:  
+<p align="center">
+  <img src="https://speckbitx3.s3.amazonaws.com/media/django-summernote/2018-07-23/6f8661fc-fa8b-4bc4-9c0c-f9a16e709e90.svg" />
+<p>
 
- CSS animirani background:  
- <https://csspoint101.com/30-css-animated-background/>
+Primijetite kako se branchevi izdvajaju iz mastera. To jest, da svaki branch nastaje iz (ili iza) nekog commita. Za jednostavan rad s gitom, gledajte na brancheve kao na vezane liste, a commitove kao čvorove.  
+Git uvijek dodaje commit na kraj liste, nikad ispred commita ili na početak. Branch je pokazivač na zadnji element liste. Pogledajte zeleni i plavi branch. Ime brancha pokazuje na zadnji element. Dodavanjem novog commita branch ide naprijed na novi commit.
+
+Branch logički razdvaja vaš kod od onog što se događa na masteru. Sve promjene koje radite u branchu ostaju u tom branchu čak i ako ga pushate. Znači, sve greške, bugovi i ostali nered koji uvedete u kod se ne vidi van tog brancha. Jednom kad želite svoj kod pokazati svijetu (tj. ostalim kolegama), radite **merge** na master.
+
+### <a name='gitmerge'></a>git merge
+
+Merge je naredba kojom promjene iz jednog brancha dovodite u drugi branch. Najčešće radite merge u **master**.  
+
+Merge ima 2 tipa: FF i MC:
+
+- FF je fast-forward merge. To je merge koji se dogodi kad nema novih promjena na masteru nakon što smo se branchali. Znači master se samo brzo gurne naprijed na naš branch tj. zadnji commit (otud naziv)
+
+- MC je merge commit. To je kad postoje promjene na masteru nakon što smo se mi branchali. Merge commit onda sadrži naše promjene iz brancha i nove promjene u masteru
+ 
+FF merge se uvijek događa kad radite sami pa nema nikog drugog da ubacuje promjene osim vas. MC se događa u grupnom radu. Slijedi par vizualnih primjera:
+Fast-Forward Merge:
+
+<p align="center">
+  <img src="https://wac-cdn.atlassian.com/dam/jcr:b87df050-2a3a-4f17-bb80-43c5217b4947/07%20(1).svg?cdnVersion=kw" />
+<p>
+
+Merge commit merge, također se zove i *Three way merge* zbog algoritma kojeg koristi:
+
+<p align="center">
+  <img src="https://wac-cdn.atlassian.com/dam/jcr:91b1bdf5-fda3-4d20-b108-0bb9eea402b2/08.svg?cdnVersion=kw" />
+<p>
+
+### <a name='gitpushandpull'></a>git push and pull
+
+**Git push** je jednostavan za shvatiti. On jednostavno gura na GitHub promjene koje smo radili lokalno pod uvjetom da je to moguće. To nije moguće ako GitHub ima promjene koje mi nemamo, tj. naš lokalni branch je stariji od onog na GH. Tada trebamo **pull**.
+
+Pull radi 2 stvari: dohvaća promjene i onda radi merge u naš branch (najčešće master). Nakon toga se stvara Merge Commit i možemo napraviti push.
+
+## <a name='Gitworkflow'></a>Git workflow
+
+Samostalan rad uz git rad je jednostavan. Radite promjene, radite commit i onda push. Kad radite u timu taj *flow* se malo mijenja.
+Trebate se prilagoditi jedni drugima što može predstavljati problem.
+
+Problem je što više ljudi mijenja isti kod i onda rade *push* na isti repo.
+Zašto je ovo problem postane očito jako brzo ako malo razmislite o ovome.
+
+1) Ako vam treba 2 dana za napraviti promjene, a vašim kolegama manje i oni završe prije vas i naprave push, onda će se dogoditi da se vaše promjene temelje na staroj verziji koda dok je na GitHubu nova.
+
+2) Ako vi i vaš kolega mijenjate istu datoteku i oboje napravite push, koje promjene će git uzeti?
+
+3) Ako vi radite *Login* na u 4 commita, a vaš kolega radi *Footer* u 3 i vi napravite push nakon 2 commita, kolega nakon 3 pa opet vi nakon 2, onda je `git log` nered u kojem se ne vidi kad je šta dodano i zašto.
+
+Ovi problemi se rješavaju uz pomoć 2 alata: praćenje dogovorenog *workflowa* i korištenje git naredbi za to (merge, pull i branch).  
+
+Također, objasnit ćemo kako se rješavaju konflikti.
+
+### <a name='Gitworkflowsinglemaster'></a>Git workflow: single master
+
+Single master workflow je jednostavan i brz workflow za male timove između 2 i 4 čovjeka. Radi se jednostavno: svaki suradnik radi promjene na svom masteru lokalno i onda radi push. Kako se rješavaju problemi spomenuti iznad?
+
+1) Svaki put kad radite push, git će provjeriti je li vaša verzija koda starija od one na GitHubu. Ako jest, morate napraviti pull prvo. Pull će spojiti vaše promjene s promjenama na GithHbu. Pull naredba radi **merge** automatski. Nakon toga, možete push.
+
+2) Ako promjene na GH nad istim datotekama kao i vaše, imate `merge conflict`, tj. pull se ne može izvršiti do kraja. Potrebno je napraviti `conflict resolution`. Ovo se sastoji od toga da odaberete promjene koje želite zadržati (svoje ili kolegine) ili prilagodite svoje promjene da se uklapaju u novi kod koje je dodao vaš kolega. Kad napravite što je potrebno, potvrdite merge i pull će se izvršiti do kraja.
+
+3) Ovaj problem nažalost ostaje s ovim workflowom. Jedino rješenje je raditi push onda i samo onda kad ste gotovi s onim što radite. Tada se commitovi neće miješati.
+
+Ovakav pristup je dosta sličan drugim alatima poput SVN-a.
+(ako nekog [zanima](https://www.perforce.com/blog/vcs/git-vs-svn-what-difference))
+
+### <a name='Gitworkflowfeaturebranches'></a>Git workflow: feature branches
+
+Daleko najpopularniji pristup. Upravo ovaj pristup definira git i izdvaja ga od drugih alata poput SVN-a. Flow ide ovako...
+
+Svaki put kad počnete raditi na nečem novom, npr. radite *Footer* komponentu, stvarate branch za to. Kada završite s radom, tj. napravili ste *Footer* i zadovoljni ste, vrijeme je da uvedete te promjene u ostatak koda. U tom trenutku radite *merge* eksplicitno u *master*. Tada rješavate probleme 1 i 2 kao u workflowu iznad dok problem 3 uopće nemate zbog ovog pristupa:
+
+1) Kad napravite merge na master, ako nema drugih promjena merge prolazi glatko kao *Fast-Forward* ili ako ima kao 3-way merge.
+
+2) Ako postoji konflikt, rješava se isto kao i inače. Čak je poželjno periodički provjeriti je li se master mijenja. Ako je, možete dodati te promjene u svoj branch tako da napravite merge s mastera u njega. Ovo nije obavezno.
+
+3) Ovaj problem nemate! Sve promjene su logički grupirane i neovisne!
+
+Pravila ovog pristupa:
+
+- NIKAD ne radite commit na masteru, samo merge u njega iz brancheva
+- Periodički provjeravate promjene na masteru i dodajete ih u svoj branch (poželjno)
+- Branch prije merga mora biti funkcionalan. NE smije biti bugova ili WIP brancheva
+- Preporučuje se online merge kroz Pull Request, ali nije nužno
+
+## <a name='GitiVSCode'></a>Git i VSCode
+
+Rad sa gitom dosta je olakšan VSCode-om. Možete vizualno raditi `add`, `commit`, `merge` i `sync`. Krenimo s **add** i **commit**.
+
+### <a name='VScodeaddicommit'></a>VScode: add i commit
+
+Trenutno dok pišem ovo imam 4 promjene u "kodu":
+
+<p align="center">
+  <img src="./readmeRess/git_me.png" />
+<p>
+
+Koristeći plusić pored njih dodat ću sve osim *.md* datoteke.
+
+<p align="center">
+  <img src="./readmeRess/git_me2.png" />
+<p>
+
+Iznad napišem poruku tipa "adding docs resources"
+
+<p align="center">
+  <img src="./readmeRess/git_me3.png" />
+<p>
+
+Ctrl + ENTER (ili kvačica):
+
+<p align="center">
+  <img src="./readmeRess/git_me4.png" />
+<p>
+
+`git status` mi daje ovo:
+
+<p align="center">
+  <img src="./readmeRess/git_me6.png" />
+<p>
+
+Što je isto što i na slici iznad samo iz terminala.
+
+A `git log` ovo:
+
+<p align="center">
+  <img src="./readmeRess/git_me5.png" />
+<p>
+
+### <a name='VSCodecheckoutandmerge'></a>VSCode: checkout and merge
+
+VSCode vam dopušta mijenjanje brancheva i njihovo merganje.  
+Mijenjanje brancheva radite u donjem lijevom kutu:
+
+<p align="center">
+  <img src="./readmeRess/git_me7.png" />
+<p>
+
+Nakon što promijenite branch, možete ga merge i push. Za ovaj primjer, napravit ću merge ovog brancha `bonus--git-workflow` u `master`.
+
+Prvo potrebno je commitati sve promjene. Zatim mijenjamo branch u master i na kraju radimo merge sve kroz VScode bez ijedne naredbe. Letz G0!  
+
+---
+Prvo, dodajemo promjene (ja imam samo jednu):
+
+<p align="center">
+  <img src="./readmeRess/commit.gif" />
+<p>
+
+Zatim mijenjamo branch na master:
+
+<p align="center">
+  <img src="./readmeRess/master.gif" />
+<p>
+
+I na kraju radimo merge:
+
+<p align="center">
+  <img src="./readmeRess/merge.gif" />
+<p>
+
+Primijetite da imamo broj 2 uz uzlaznu strjelicu. Ako kliknemo na njega napravit će se **push**. Broj 0 pokazuje broj dolaznih commitova. Budući da radim sam, meni je to uvijek nula. Kod vas su to commitovi vaših kolega. Klik na taj button će napraviti **sync**: pull pa push.
+
+### <a name='VSCodeconflictresolution'></a>VSCode: conflict resolution
+
+Rješavanje konflikta bez VSCoda je dosta nezgodno, a U VSCodu je dosta jednostavno (jako smislena rečenica).
+
+Za demonstraciju uzrokovat ću **merge conflict** i riješiti ga u VSCodu.  
+U tu svrhu napravio sam brancheve koje ću zvati `mc-master` i `mc-ivan`.
+
+Krenimo ovako. Imamo 3 osobe:
+- Mate: Vlasnik repoa, on je napravio prvi commit
+- Jure: Kolega, on je napravio drugi commit
+- Ivan: Mi, radimo svoj commit
+
+Prvo je Mate napravio svoj commit. Onda smo se mi branchali, tako da naš history sadrži samo prvi commit. Ovo je inicijalni commit:
+
+```js
+function myFunction () {
+  console.log("Hello this Mate!")
+}
+```
+
+Nakon toga mi se branchamo i dodajemo ovo u svoj branch `mc-ivan`:
+
+```js
+function myFunction () {
+  console.log("Hello this Mate!")
+  console.log("Hello this is Ivan")
+}
+```
+
+Međutim, ono što mi ne znamo je da je u međuvremenu commit napravio i kolega
+Jure:
+
+```js
+function myFunction () {
+  console.log("Hello this Mate!")
+  console.log("Hello this is Jure")
+}
+```
+
+Zapravo imamo ovo:
+
+<p align="center">
+  <img src="./readmeRess/git_flow.png" />
+<p>
+
+Sad krećemo s mergeom u master. Prvo radimo checkout na `mc-master` i onda merge `mc-ivan` brancha. Vidimo da merge ne prolazi i imamo conflict:
+
+<p align="center">
+  <img src="./readmeRess/git_me_c1.png" />
+<p>
+
+Ako kliknemo na `Accept Current Change` git će izabrati crvene promjene.
+Time gubimo `Hello Ivan`. Ako odaberemo `Accept Incoming Change` gubimo crvene promjene tj. `Hello Jure`. Zato biramo obje: `Accept Both Changes`.
+To nam daje ovo:
+
+<p align="center">
+  <img src="./readmeRess/git_me_c2.png" />
+<p>
+
+Vidimo da se Mate pojavljuje dvaput. Izbrišimo ga:
+
+<p align="center">
+  <img src="./readmeRess/git_me_c3.png" />
+<p>
+
+I sad imamo finalne promjene. Potrebno je spremiti file (Ctrl + S) i potvrditi merge. Na lijevoj strani dodamo file sa + i commitamo na kvačicu. Merge je sad prošao.
+
+Da smo radili na dvije različite datoteke ili mijenjali datoteku na dva različita mjesta ne bi došlo do konflikta. Zato je bitna podjela rada.
+
+## <a name='Savjetizarad'></a>Savjeti za rad
+
+Podijelite se po modulima ili po komponentama. Neka samo jedan radi na jednoj komponenti ili modulu. Pokušajte se što je manje moguće križati. Jedino mjesto gdje će tada doći do konflikta je `pages` folder kad dodajete modul ili komponentu u stranicu. Tada onaj koji radi **pull** samo odabere `Accept Both Changes` i nema problema.
+
+U bilo kojem trenutku tijekom mergea možete napraviti **abort** sa `git merge --abort`. To će poništiti promjene mergea i vratiti vas na orginalni branch.
+
+Znam da ovo neće ići glatko, zato smo tu za pomoć. Za sve probleme i pitanja oko gita javite se direktno kroz Teams i pomoći ću vam. Git nije dio zahtjeva ovog kolegija nego samo alat. Ne očekuje se od vas da naučite sve ovo, samo dovoljno za rad. Iako izgleda teško na prvu, nije toliko, pogotovo kad imate nekog za pitati :)
+
+## <a name='Korisniresursi'></a>Korisni resursi
+
+Na webu postoji nekoliko **Git cheatsheet** dokumenata i slika. Evo neki:
+- [pdf](https://education.github.com/git-cheat-sheet-education.pdf)
+- [medium članak](https://towardsdatascience.com/the-git-cheat-sheet-5858865457ef)
+
+Slika:
+![git-cheatsheet-black](https://thepupsandus.files.wordpress.com/2016/07/git_cheat_sheet_black.jpg)
+
+Nešto predobro! Definitivno pogledajte:  
+[Vizualizacija git naredbi!](https://dev.to/lydiahallie/cs-visualized-useful-git-commands-37p1#merge)
+
+Dokumentacija i objašnjenja naredbi:
+- [Add](https://www.atlassian.com/git/tutorials/saving-changes)
+- [Commit](https://www.atlassian.com/git/tutorials/saving-changes/git-commit)
+- [Merge](https://www.atlassian.com/git/tutorials/using-branches/git-merge)
+- [Pull](https://www.atlassian.com/git/tutorials/syncing/git-pull)
