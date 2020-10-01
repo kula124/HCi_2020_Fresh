@@ -23,7 +23,9 @@ Repozitorij se sastoji od 6 *project* brancheva, 2 *intro* brancha, jednog ili v
   - svaki koncept korišten u vježbama je pokriven teorijom
   - svaki branch uvodi novi **React koncept** i **segment stranice**
 - **intro**: uvodni dio, neće biti pokriven vježbama, ali ćemo se referirati na njega. Služi kao uvod u ono što ćemo raditi
-- **bonus**: dodatni sadržaj koji pokriva ono što može predstavljati problem (trenutno u izradi *Vodič kroz git*, *Vodič kroz CSS i SASS*, *VSCode unleashed*)
+- **bonus**:
+  - [Uvod u git](./git-workflow.md)
+  - CSS / SASS (to be added)
 
 Kroz vježbe stvorit ćete svoj repozitorij i pratiti upute branch po branch.  
 Za projekt ćete imati odvojen repozitorij nevezan s ovim. To će biti vaš samostalan rad.

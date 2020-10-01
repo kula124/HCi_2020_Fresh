@@ -1,20 +1,48 @@
+
 # Git kolaboracija
 
 <p align="center">
  <img src="https://miro.medium.com/max/700/0*IwvZRrlEF-mTF9Vp" />
 </p>
 
+<!-- vscode-markdown-toc -->
+* [Postavljanje repozitorija i dodavanje suradnika](#Postavljanjerepozitorijaidodavanjesuradnika)
+	* [Vlasnik: Postavljanje repozitorija i dodavanje suradnika](#Vlasnik)
+	* [Suradnik: dodati remote i napraviti pull](#Suradnik)
+		* [Prvi pristup (clone)](#Prvipristupclone)
+		* [Drugi pristup (fetch / checkout)](#Drugipristupfetchcheckout)
+* [Temeljne git naredbe](#Temeljnegitnaredbe)
+	* [git add  i git commit](#gitaddigitcommit)
+	* [git branch](#gitbranch)
+	* [git merge](#gitmerge)
+	* [git push and pull](#gitpushandpull)
+* [Git workflow](#Gitworkflow)
+	* [Git workflow: single master](#Gitworkflowsinglemaster)
+	* [Git workflow: feature branches](#Gitworkflowfeaturebranches)
+* [Git i VSCode](#GitiVSCode)
+	* [VScode: add i commit](#VScodeaddicommit)
+	* [VSCode: checkout and merge](#VSCodecheckoutandmerge)
+	* [VSCode: conflict resolution](#VSCodeconflictresolution)
+* [Savjeti za rad](#Savjetizarad)
+* [Korisni resursi](#Korisniresursi)
+
+<!-- vscode-markdown-toc-config
+	numbering=false
+	autoSave=true
+	/vscode-markdown-toc-config -->
+<!-- /vscode-markdown-toc -->
+
 Kad počnemo raditi na projektu, jedna osoba će stvoriti online repozitorij gdje će biti kod,
 a ostali će imati lokalne verzije koda. Svako malo, kako projekt bude
 napredovao dodavat će se novi kod kroz `push` i `merge` naredbe. Ovdje ćemo objasniti kako će to ići.  
 Postoji više pristupa kolaborativnom radu, ali mi ćemo objasniti 2.
 
-## Postavljanje repozitorija i dodavanje suradnika
+## <a name='Postavljanjerepozitorijaidodavanjesuradnika'></a>Postavljanje repozitorija i dodavanje suradnika
 
 Svi online repozitorij ima vlasnika i suradnike. Može imati i kontributore, ali njih ćemo zasad zanemariti (specifičniji su za open-source projekte). Za početak rada vlasnik treba inicijalizirati repo i dodati suradnike.  
 Suradnici trebaju samo klonirati repo ili dodati remote kroz git. Objasnit ćemo oba pristupa.
 
-### Vlasnik: Postavljanje repozitorija i dodavanje suradnika
+### <a name='Vlasnik'></a>Vlasnik: Postavljanje repozitorija i dodavanje suradnika
 
 Nakon što je stvoren repozitorij, osoba koja je vlasnik treba učiniti dvije stvari:
 - Dodati master branch kroz prvi commit
@@ -38,14 +66,14 @@ Prvo idete na ![gear-icon](./readmeRess/gear.svg) **Settings** pa **Manage acces
 
 Kad kolaborator prihvati, pojavit će se ispod (vidite na slici da ja imam jednog kolaboratora). Tada i on može raditi *push* i *pull* commitova na vaš repo (to je moguće ograničiti, ali nema potrebe u našem primjeru).
 
-### Suradnik: dodati remote i napraviti pull
+### <a name='Suradnik'></a>Suradnik: dodati remote i napraviti pull
 
 Suradnik se treba samo spojiti na GitHub repo vlasnika. To se može napraviti na dva načina (jednako su laka... bar ja mislim):
 
 - Suradnik ode na GitHub link repozitorija, kopira ga i klonira repo
 - Suradnik doda remote i napravi fetch
 
-#### Prvi pristup (clone)
+#### <a name='Prvipristupclone'></a>Prvi pristup (clone)
 
 Objasnimo prvi pristup. Nakon što otvorite GitHub link projekta samo ga kopirate. Link imate na dva mjesta:
 
@@ -63,7 +91,7 @@ Ime foldera je opcionalno. Ako ga ne stavite, git će dati ime repozitorija (na 
 
 Objasnimo drugi način
 
-#### Drugi pristup (fetch / checkout)
+#### <a name='Drugipristupfetchcheckout'></a>Drugi pristup (fetch / checkout)
 
 Otvorite folder gdje želite stvoriti repozitorij u terminalu.
 Sad pišete sljedeće četiri naredbe jednu za drugom (ponovno vam treba link na repo):
@@ -80,15 +108,15 @@ Na ovaj način možete dodati branch po branch, dok git clone dodaje sve odjedno
 
 To je to. U ovom trenutku imate lokalni repo spojen na remote i možete početi raditi. Kako ćete raditi objašnjeno je u sljedećem poglavlju.
 
-## Temeljne git naredbe
+## <a name='Temeljnegitnaredbe'></a>Temeljne git naredbe
 
-### git add  i git commit
+### <a name='gitaddigitcommit'></a>git add  i git commit
 
 `git add` označava datoteku ili folder koji dodajete u *staging* ili tzv. *index*. Ono što je dodano u index može se commitat sa `git commit`.
 
 `git commit` sprema sve dodane promjene u indexu (`git add`) u **commit**. Commit je skup promjena nad datotekama. Ujedno je i gradivna jedinica git-a i git brancheva (grana).
  
-### git branch
+### <a name='gitbranch'></a>git branch
  
 Ako je git commit čvor u vezanoj listi commitova, onda je branch cijela lista. Tehnički to nije baš tako, ali vizualno je jako blizu istini. Branch mijenjamo sa `git checkout` naredbom. Možemo stvoriti branch i prebaciti se na njega istovremeno sa `git checkout -b noviBranch`. Sa `git branch imeBrancha` samo stvaramo novi branch na koji se onda prebacimo sa `git checkout imeBrancha`, dakle bez `-b` flaga ako branch već postoji. Branchevi se prikazuju kao liste.  
 Vjerojatno ste vidjeli ovakve slike:
@@ -108,7 +136,7 @@ Git uvijek dodaje commit na kraj liste, nikad ispred commita ili na početak. Br
 
 Branch logički razdvaja vaš kod od onog što se događa na masteru. Sve promjene koje radite u branchu ostaju u tom branchu čak i ako ga pushate. Znači, sve greške, bugovi i ostali nered koji uvedete u kod se ne vidi van tog brancha. Jednom kad želite svoj kod pokazati svijetu (tj. ostalim kolegama), radite **merge** na master.
 
-### git merge
+### <a name='gitmerge'></a>git merge
 
 Merge je naredba kojom promjene iz jednog brancha dovodite u drugi branch. Najčešće radite merge u **master**.  
 
@@ -131,13 +159,13 @@ Merge commit merge, također se zove i *Three way merge* zbog algoritma kojeg ko
   <img src="https://wac-cdn.atlassian.com/dam/jcr:91b1bdf5-fda3-4d20-b108-0bb9eea402b2/08.svg?cdnVersion=kw" />
 <p>
 
-### git push and pull
+### <a name='gitpushandpull'></a>git push and pull
 
 **Git push** je jednostavan za shvatiti. On jednostavno gura na GitHub promjene koje smo radili lokalno pod uvjetom da je to moguće. To nije moguće ako GitHub ima promjene koje mi nemamo, tj. naš lokalni branch je stariji od onog na GH. Tada trebamo **pull**.
 
 Pull radi 2 stvari: dohvaća promjene i onda radi merge u naš branch (najčešće master). Nakon toga se stvara Merge Commit i možemo napraviti push.
 
-## Git workflow
+## <a name='Gitworkflow'></a>Git workflow
 
 Samostalan rad uz git rad je jednostavan. Radite promjene, radite commit i onda push. Kad radite u timu taj *flow* se malo mijenja.
 Trebate se prilagoditi jedni drugima što može predstavljati problem.
@@ -155,7 +183,7 @@ Ovi problemi se rješavaju uz pomoć 2 alata: praćenje dogovorenog *workflowa* 
 
 Također, objasnit ćemo kako se rješavaju konflikti.
 
-### Git workflow: single master
+### <a name='Gitworkflowsinglemaster'></a>Git workflow: single master
 
 Single master workflow je jednostavan i brz workflow za male timove između 2 i 4 čovjeka. Radi se jednostavno: svaki suradnik radi promjene na svom masteru lokalno i onda radi push. Kako se rješavaju problemi spomenuti iznad?
 
@@ -168,7 +196,7 @@ Single master workflow je jednostavan i brz workflow za male timove između 2 i 
 Ovakav pristup je dosta sličan drugim alatima poput SVN-a.
 (ako nekog [zanima](https://www.perforce.com/blog/vcs/git-vs-svn-what-difference))
 
-### Git workflow: feature branches
+### <a name='Gitworkflowfeaturebranches'></a>Git workflow: feature branches
 
 Daleko najpopularniji pristup. Upravo ovaj pristup definira git i izdvaja ga od drugih alata poput SVN-a. Flow ide ovako...
 
@@ -187,11 +215,11 @@ Pravila ovog pristupa:
 - Branch prije merga mora biti funkcionalan. NE smije biti bugova ili WIP brancheva
 - Preporučuje se online merge kroz Pull Request, ali nije nužno
 
-## Git i VSCode
+## <a name='GitiVSCode'></a>Git i VSCode
 
 Rad sa gitom dosta je olakšan VSCode-om. Možete vizualno raditi `add`, `commit`, `merge` i `sync`. Krenimo s **add** i **commit**.
 
-### VScode add i commit
+### <a name='VScodeaddicommit'></a>VScode: add i commit
 
 Trenutno dok pišem ovo imam 4 promjene u "kodu":
 
@@ -231,7 +259,7 @@ A `git log` ovo:
   <img src="./readmeRess/git_me5.png" />
 <p>
 
-### VSCode: checkout and merge
+### <a name='VSCodecheckoutandmerge'></a>VSCode: checkout and merge
 
 VSCode vam dopušta mijenjanje brancheva i njihovo merganje.  
 Mijenjanje brancheva radite u donjem lijevom kutu:
@@ -265,7 +293,7 @@ I na kraju radimo merge:
 
 Primijetite da imamo broj 2 uz uzlaznu strjelicu. Ako kliknemo na njega napravit će se **push**. Broj 0 pokazuje broj dolaznih commitova. Budući da radim sam, meni je to uvijek nula. Kod vas su to commitovi vaših kolega. Klik na taj button će napraviti **sync**: pull pa push.
 
-### VSCode conflict resolution
+### <a name='VSCodeconflictresolution'></a>VSCode: conflict resolution
 
 Rješavanje konflikta bez VSCoda je dosta nezgodno, a U VSCodu je dosta jednostavno (jako smislena rečenica).
 
@@ -334,7 +362,7 @@ I sad imamo finalne promjene. Potrebno je spremiti file (Ctrl + S) i potvrditi m
 
 Da smo radili na dvije različite datoteke ili mijenjali datoteku na dva različita mjesta ne bi došlo do konflikta. Zato je bitna podjela rada.
 
-## Savjeti za rad
+## <a name='Savjetizarad'></a>Savjeti za rad
 
 Podijelite se po modulima ili po komponentama. Neka samo jedan radi na jednoj komponenti ili modulu. Pokušajte se što je manje moguće križati. Jedino mjesto gdje će tada doći do konflikta je `pages` folder kad dodajete modul ili komponentu u stranicu. Tada onaj koji radi **pull** samo odabere `Accept Both Changes` i nema problema.
 
@@ -342,7 +370,7 @@ U bilo kojem trenutku tijekom mergea možete napraviti **abort** sa `git merge -
 
 Znam da ovo neće ići glatko, zato smo tu za pomoć. Za sve probleme i pitanja oko gita javite se direktno kroz Teams i pomoći ću vam. Git nije dio zahtjeva ovog kolegija nego samo alat. Ne očekuje se od vas da naučite sve ovo, samo dovoljno za rad. Iako izgleda teško na prvu, nije toliko, pogotovo kad imate nekog za pitati :)
 
-## Korisni resursi
+## <a name='Korisniresursi'></a>Korisni resursi
 
 Na webu postoji nekoliko **Git cheatsheet** dokumenata i slika. Evo neki:
 - [pdf](https://education.github.com/git-cheat-sheet-education.pdf)
@@ -355,7 +383,7 @@ Nešto predobro! Definitivno pogledajte:
 [Vizualizacija git naredbi!](https://dev.to/lydiahallie/cs-visualized-useful-git-commands-37p1#merge)
 
 Dokumentacija i objašnjenja naredbi:
-- [Add]()
-- [Commit]()
-- [Merge]()
-- [Pull]()
+- [Add](https://www.atlassian.com/git/tutorials/saving-changes)
+- [Commit](https://www.atlassian.com/git/tutorials/saving-changes/git-commit)
+- [Merge](https://www.atlassian.com/git/tutorials/using-branches/git-merge)
+- [Pull](https://www.atlassian.com/git/tutorials/syncing/git-pull)
