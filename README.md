@@ -165,27 +165,43 @@ Svjesni smo tog nedostatka pa je uključen popis korisnih video materijala na [k
 Autor ovog repozitorija i koda je student koji je prije dvije godine počeo učiti web development. Slobodno mi se obratite kao i bilo kojem drugom studentu.  
 Konkretan odgovor na konkretno pitanje je najbolji i najbrži način da naučite nešto.  
 Iskoristite to. Manje ćete guglati.  
+Kontakt Email:
+ikulis00@fesb.hr  
+Ili direktnom porukom na Teams.  
 Nemojte prestati pitati dok pitanje nije odgovoreno ili vam osoba koju pitate kaže "ne znam". Tad pitajte drugu osobu.
 
 ## Vanjski sadržaji <a name="l"></a>
 
-Video resursi:
+**Video resursi:**
  - Uvod u React 2H [[YT](https://www.youtube.com/watch?v=UtIOMUQ7nWM)]
  - Uvod u Gatsby 1H [[YT](https://www.youtube.com/watch?v=6YhqQ2ZW1sc)]
  - CSS: Općenito 20min [[YT](https://www.youtube.com/watch?v=1PnVor36_40)]
  - CSS: Flexbox 15min [[YT](https://www.youtube.com/watch?v=fYq5PXgSsbE)]
  
- Gotov dizajn:
+ **Gotov dizajn:**
 
  - Login page 18min [[YT](https://www.youtube.com/watch?v=L5WWrGMsnpw)]
  - Login page transparent 10min[[YT](https://www.youtube.com/watch?v=slu3pImFcRI)]
  - Landing page 30min [[YT](https://www.youtube.com/watch?v=HZv8YHYUHTU)]
  ---
 
- Dizajn inspiracija:  
+ **Dizajn inspiracija:**  
  <https://www.webdesign-inspiration.com/>
+ 
+ <https://www.dtelepathy.com/blog/inspiration/23-great-examples-of-innovative-navigation-for-your-inspiration>
 
- Gotov kod:  
+ <https://medium.theuxblog.com/design-trends-all-the-best-big-hero-image-136061191451>
+ 
+ **Gotov kod spreman za korištenje:**  
+ Bootsrap za React  
+ <https://react-bootstrap.github.io/>  
+ 
+ Styled Components  
+ <https://styled-components.com/>
 
  CSS animirani background:  
  <https://csspoint101.com/30-css-animated-background/>
+
+**Kontakt:**
+Email: ikulis00@fesb.hr  
+MS Teams: Ivan Kuliš
