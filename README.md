@@ -202,6 +202,6 @@ Nemojte prestati pitati dok pitanje nije odgovoreno ili vam osoba koju pitate ka
  CSS animirani background:  
  <https://csspoint101.com/30-css-animated-background/>
 
-**Kontakt:**
+**Kontakt:**  
 Email: ikulis00@fesb.hr  
 MS Teams: Ivan Kuliš
