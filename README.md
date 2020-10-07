@@ -44,11 +44,18 @@ Suradnici trebaju samo klonirati repo ili dodati remote kroz git. Objasnit ćemo
 
 ### <a name='Vlasnik'></a>Vlasnik: Postavljanje repozitorija i dodavanje suradnika
 
+Stvaranje online repozitorija je jednostavno.  
+Upute možete pronaći [ovdje](https://docs.github.com/en/free-pro-team@latest/github/getting-started-with-github/create-a-repo).  
+**Napomena:** Bitno je stvoriti **prazan** repozitorij. To znači bez *README.md* i bez *.gitignore* datoteka. Ako pratite upute, na koraku 5
+**NEMOJTE** označiti dodavanje *README* datoteke  
+> ~~5. Select Initialize this repository with a README.~~  
+>  Ako to greškom napravite nije problem, potrebno je dodati `-f` flag na first push. Spomenuto je ispod.
+
 Nakon što je stvoren repozitorij, osoba koja je vlasnik treba učiniti dvije stvari:
 - Dodati master branch kroz prvi commit
 - Dodati kolege kao kolaboratore
 
-To se radi na GitHubu. Nakon što je repozitorij stvoren, potrebno je lokalno stvoriti projekt kao što je opisano u [prvim vježbama]().
+To se radi na GitHubu. Nakon što je repozitorij stvoren, potrebno je lokalno stvoriti projekt kao što je opisano u [prvim vježbama](https://github.com/n00ne1mportant/HCi_2020_Fresh/tree/project-0--gatsby-setup).
 
 Nakon što se inicijalizira projekt koristeći `gatsby new`, dodaje se `remote` i radi prvi push:
 
@@ -56,6 +63,9 @@ Nakon što se inicijalizira projekt koristeći `gatsby new`, dodaje se `remote` 
 $ git remote add origin linkNaNoviPrazanRepo
 $ git push -u origin master
 ```
+> Ako ste napravili repo sa README datotekom na GitHubu, ovo vam neće proć. Potrebno je dodati `force` flag. Vaša naredba onda izglea ovako:  
+> `git push -u -f origin master`
+
 Sada, koristeći GitHub sučelje, dodaju se kolaboratori:
 
 <p align="center">
