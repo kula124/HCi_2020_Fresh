@@ -28,7 +28,7 @@ GatsbyJS je framework za ReactJS. Možemo reći da imamo framework koji se oslan
 
 "Static site" znači da imamo HTML + CSS + JS. Tri datoteke (ili više ako ih razbijemo na više dijelova, ali to je samo estetika) koje možemo staviti na USB pa prebaciti na neki *web*-server ili podići na Apache ili ga samo otvoriti u *web*-pretraživaču na računalu. Ispred sebe onda vidimo gotovu stranicu i to je to. S ReactJS-om, trebamo dignuti server koji će služiti ReactJS aplikaciju. Trebamo NodeJS i NPM za instalaciju svih paketa koje ReactJS koristi. Ne možemo to jednostavno prebaciti na USB ili samo otvoriti u pretraživaču. Stoga se za statične stranice ReactJS ne preporučuje jer stvara ogroman overhead (preporučuje se ručno pisanje HTML-a ili WordPress). GatsbyJS rješava ovaj problem na jednostavan način: piše se pojednostavljena verzija ReactJS-a (nema ručne navigacije i routinga npr.) i onda kad smo gotovi, GatsbyJS će sav taj ReactJS kod pretvoriti u klasični HTML + CSS + JS statični *site*.
 
-GatsbyJS premošćuje most između ReactJS-a i statičnih stranica.
+GatsbyJS premošćuje sraz između ReactJS-a i statičnih stranica.
 
 ## Instalacija alata
 
