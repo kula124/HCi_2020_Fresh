@@ -418,7 +418,7 @@ $ git status
 ## 2)
 $ git checkout master
 ## 3)
-$ git merge project-1-start
+$ git merge vj1
 ```
 
 Ako je sve prošlo bez grešaka gotovi smo.
