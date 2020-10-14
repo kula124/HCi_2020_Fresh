@@ -146,16 +146,16 @@ Radimo navigaciju prikazanu iznad. Vidimo da se može podijeliti na komponente k
 
 ## Sadržaj commitova <a name="toc"></a>
 
-Kroz sljedeća tri commita napravit ćemo prvi dio projekt i objasnit određene koncepte. Prije nego krenemo kroz commitove, napavimo git branch:
+Kroz sljedeća tri commita napravit ćemo prvi dio projekta i objasniti određene koncepte. Prije nego krenemo kroz commitove, napavimo git branch:
   - Osigurajmo da `git status` daje `nothing to commit, clean working tree`  
   Pobrišite datoteke i promjene koje ste radili u projektu ako status nije clean
   - Korištenjem naredbe `git branch vj1` stvaramo novi branch `vj1`
   - `git checkout vj1` će nas prebaciti na novi branch
 > Postoji kratica za ovo: `git checkout -b vj1` koja spaja dvije naredbe iznad
 
-Naredbbom `git branch` potvrdite da se nalazite na ispravnom branchu prije nastaka! Zvjezdica `*` označava odabran branch znači da moramo dobiti ovo: `*vj1`. Ako je sve prošlo u redu, nastavljamo. Slijede commiti koje ćemo napraviti:
-> Prije počtka commitanja u svakoj vježbi potrebno je napraviti git branch!!!
-> Ovaj korak se podrazumjeva i u budućnosi se neće navoditi
+Naredbom `git branch` potvrdite da se nalazite na ispravnom branchu prije nastavka! Zvjezdica `*` označava odabran branch znači da moramo dobiti ovo: `*vj1`. Ako je sve prošlo u redu, nastavljamo. Slijede commiti koje ćemo napraviti:
+> Prije početka commitanja u svakoj vježbi potrebno je napraviti git branch!!!
+> Ovaj korak se podrazumijeva i u budućnosti se neće navoditi
 
   - **[Commit 1: project clean up](#c1)**
     - brisanje nepotrebnog koda i posavljanje projekta za početak rada
