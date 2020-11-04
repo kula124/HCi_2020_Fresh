@@ -1,0 +1,25 @@
+.comboboxItem {
+    display: flex;
+    text-align: center;
+    font-size: 12px;
+    width: 107px;
+    height: 36px;
+    padding: 0;
+    align-items: center;
+    justify-content: center;
+}
+ 
+.comboboxItem:hover {
+    cursor: pointer;
+    background-color: white;
+}
+ 
+.comboboxItem img {
+    display: flex;
+    height: 18px;
+    padding-left: 7px;
+}
+ 
+.selected {
+    background-color: white;
+}
