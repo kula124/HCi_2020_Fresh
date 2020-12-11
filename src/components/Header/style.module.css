@@ -1,6 +1,6 @@
 .container {
   height: 115px;
-  background-color: #51ffb4;
+  background-color: var(--header-color);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -17,12 +17,12 @@
 .logo span {
   font-size: 40px;
   margin-left: 20px;
-  color: #26ac7b;
+  color: var(--logo-green);
 }
 
 .container .profileIcons svg {
   margin: 0 10px;
   width: 2em;
   height: 2em;
-  color: #5a607f;
+  color: var(--font-theme);
 }

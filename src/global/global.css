@@ -1,0 +1,19 @@
+header,
+footer,
+h1,
+body,
+html,
+section {
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  list-style: none;
+}
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+}
