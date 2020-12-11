@@ -1,0 +1,28 @@
+.container {
+  height: 115px;
+  background-color: #51ffb4;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.container section {
+  margin: 0 30px;
+}
+
+.logo img {
+  width: 55px;
+}
+
+.logo span {
+  font-size: 40px;
+  margin-left: 20px;
+  color: #26ac7b;
+}
+
+.container .profileIcons svg {
+  margin: 0 10px;
+  width: 2em;
+  height: 2em;
+  color: #5a607f;
+}
