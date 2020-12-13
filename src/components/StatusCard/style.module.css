@@ -1,0 +1,48 @@
+.content {
+  width: 400px;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  color: var(--font-theme);
+  text-align: center;
+}
+
+.content .line {
+  height: 1px;
+  width: 100%;
+  background-color: gray;
+}
+
+.content img {
+  width: 90px;
+  height: 90px;
+}
+
+.topFigure figcaption {
+  font-size: 30px;
+}
+
+.topFigure img {
+  width: 120px;
+  height: 120px;
+}
+
+.predictionContainer {
+  display: flex;
+  flex-flow: row;
+  justify-content: center;
+  align-self: center;
+}
+
+.predictionFigure {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.predictionFigure figcaption {
+  font-size: 24px;
+  margin: 20px 0;
+}
