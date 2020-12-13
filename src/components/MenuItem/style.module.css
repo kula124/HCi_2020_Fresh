@@ -1,0 +1,26 @@
+.container {
+  width: 120px;
+  justify-content: space-between;
+  display: flex;
+  align-items: center;
+  text-align: left;
+  padding: 10px 15px;
+}
+
+.container span {
+  display: block;
+  color: var(--font-theme);
+  font-size: 22px;
+}
+
+.container svg {
+  width: 1.7em !important;
+  height: 1.7em !important;
+  color: var(--font-theme);
+}
+
+.container:hover {
+  transition: background-color 0.3s ease-in-out;
+  background-color: lightblue;
+  cursor: pointer;
+}
