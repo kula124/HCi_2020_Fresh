@@ -24,3 +24,7 @@
   background-color: lightblue;
   cursor: pointer;
 }
+
+.container.active {
+  background-color: rgb(169, 250, 250);
+}

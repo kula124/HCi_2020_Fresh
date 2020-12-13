@@ -6,7 +6,7 @@ import SideBar from "../components/SideBar"
 const IndexPage = () => (
   <main>
     <Header />
-    <SideBar/>
+    <SideBar activeTab='Početna' />
   </main>
 )
 

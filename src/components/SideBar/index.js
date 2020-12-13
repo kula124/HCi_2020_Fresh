@@ -5,10 +5,10 @@ import MenuItem from '../MenuItem'
 
 import styles from './style.module.css'
 
-const SideBar = () => (
+const SideBar = ({activeTab}) => (
   <nav className={styles.container}>
-    <MenuItem icon={faHome} title='Početna' />
-    <MenuItem icon={faTachometerAlt} title='Uređaji' />
+    <MenuItem icon={faHome} activeTab={activeTab} title='Početna' />
+    <MenuItem icon={faTachometerAlt} activeTab={activeTab} title='Uređaji' />
   </nav>
   )
 
