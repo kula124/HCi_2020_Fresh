@@ -26,3 +26,21 @@
   height: 2em;
   color: var(--font-theme);
 }
+
+@media screen and (max-width: 415px) {
+  .logo img {
+    width: 35px;
+  }
+
+  .logo span {
+    font-size: 27px;
+    margin-left: 10px;
+  }
+
+  .container .profileIcons svg {
+    margin: 0 10px;
+    width: 1.5em;
+    height: 1.5em;
+    color: var(--font-theme);
+  }
+}
