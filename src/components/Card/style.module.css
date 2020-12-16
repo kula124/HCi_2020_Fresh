@@ -4,3 +4,31 @@
   border-radius: 10px;
   margin: 30px;
 }
+
+@media screen and (max-width: 415px) {
+  .cardContainer {
+    padding: 5vw;
+    margin: 10px auto;
+    width: 80vw;
+  }
+}
+
+@media screen and (max-width: 415px) {
+  .content {
+    width: 100%;
+  }
+
+  .content img {
+    width: 60px;
+    height: 60px;
+  }
+
+  .topFigure figcaption {
+    font-size: 30px;
+  }
+
+  .topFigure img {
+    width: 90px;
+    height: 90px;
+  }
+}
