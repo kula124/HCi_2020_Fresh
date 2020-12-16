@@ -28,3 +28,18 @@
 .container.active {
   background-color: rgb(169, 250, 250);
 }
+
+@media screen and (max-width: 415px) {
+  .container {
+    width: 90px;
+  }
+
+  .container span {
+    font-size: 18px;
+  }
+
+  .container svg {
+    width: 1.5em !important;
+    height: 1.5em !important;
+  }
+}
