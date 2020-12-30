@@ -2,7 +2,7 @@ import React from 'react'
 import styles from './style.module.css'
 import ImageParagraph from '../../components/ImageParagraph'
 import First from '../../components/Images/First'
-import Second from '../../components/Images/Second'
+import ImageLoader from '../../components/ImageLoader'
 
 const firstText = `
   Villa Oliva Verde is positioned in Vinkuran, isolated from the tourist
@@ -35,7 +35,7 @@ const secondText = `
 
 const PageContent = () => <section className={styles.pageContent}>
     <ImageParagraph image={<First />} title="About us" text={firstText}/>
-    <ImageParagraph image={<Second />} title="Vinkuran" text={secondText} reversed/>
+    <ImageParagraph image={<ImageLoader imageName="druga.jpeg" />} title="Vinkuran" text={secondText} reversed/>
 </section> 
 
 export default PageContent
