@@ -1,9 +1,10 @@
 import React, {useState} from 'react'
-
 import {navigate} from 'gatsby'
 
+import {myLocalStorage} from '../helper'
+
 const Profile = () => {
-  const [user, setUser] = useState(localStorage.getItem('loggedIn'))
+  const [user, setUser] = useState(myLocalStorage.getItem('loggedIn'))
 
   if (!user) {
     setTimeout(() => navigate('/login'), 4000)
