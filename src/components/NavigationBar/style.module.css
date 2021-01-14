@@ -2,7 +2,6 @@
     display: flex;
     justify-content: space-evenly;
     flex-flow: row;
-    width: 480px;
 }
 
 .navigationBar li {
@@ -12,14 +11,15 @@
     font-size: 14px;
     line-height: 22px;
     text-transform: uppercase;
-    color: #555
+    color: #555;
 }
 .navigationBar li:hover {
     border-bottom: 2px solid darkgray;
     cursor: pointer;
 }
 
-.navigationBar .active, .navigationBar .active:hover{
+.navigationBar .active,
+.navigationBar .active:hover {
     border-bottom: 2px solid black;
 }
 
