@@ -1,0 +1,36 @@
+.container {
+  background-color: whitesmoke;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  padding: 0 100px;
+}
+
+.container header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.container .headerTwo {
+  width: 52vw;
+  margin-left: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.container header span {
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 1px 1px 2px gray;
+  padding: 2px 4px;
+  background-color: white;
+}
+
+.container article {
+  line-height: 25px;
+  font-size: 20px;
+}
