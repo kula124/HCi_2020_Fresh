@@ -3,6 +3,7 @@ export const navs = [
   { tab: "Accommodation", to: "/" },
   { tab: "Photo Gallery", to: "/gallery" },
   { tab: "Contact", to: "/contact" },
+  { tab: "Blogs", to: "/blogs"}
 ]
 
 export const languages = [
