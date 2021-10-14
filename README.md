@@ -57,7 +57,7 @@ Nakon što je stvoren repozitorij, osoba koja je vlasnik treba učiniti dvije st
 
 To se radi na GitHubu. Nakon što je repozitorij stvoren, potrebno je lokalno stvoriti projekt kao što je opisano u [prvim vježbama](https://github.com/n00ne1mportant/HCi_2020_Fresh/tree/project-0--gatsby-setup).
 
-Nakon što se inicijalizira projekt koristeći `gatsby new`, dodaje se `remote` i radi prvi push:
+Nakon što se inicijalizira projekt koristeći `npx create-next-app`, dodaje se `remote` i radi prvi push:
 
 ```bash
 $ git remote add origin linkNaNoviPrazanRepo
@@ -138,7 +138,7 @@ Vjerojatno ste vidjeli ovakve slike:
 Bitna napomena za sliku iznad. Strjelice prikazane zapravo bi trebale ići unazad jer git čuva pointer na parent, ne na child. Znači kad idete kroz commit history uvijek idete sa kraja prema početku, nikad obrnuto. Git nativno podržava koračanje unazad, ali ne podržava koračanje unaprijed (ne postoji sintaksa ni naredba za to). Ova vizualizacija je zbog jednostavnosti prikaza. Obje notacije se koriste u praksi pa neka vas ne zbune strjelice u suprotnom smjeru ako ih vidite.
 
 <p align="center">
-  <img src="https://speckbitx3.s3.amazonaws.com/media/django-summernote/2018-07-23/6f8661fc-fa8b-4bc4-9c0c-f9a16e709e90.svg" />
+  <img src="https://res.cloudinary.com/hy4kyit2a/f_auto,fl_lossy,q_70/learn/modules/git-and-git-hub-basics/work-with-your-history-in-git/images/cc5bb8d0c83c83f04fd1187d60be9045_screen-shot-2017-05-16-at-5-41-26-pm.png" />
 <p>
 
 Primijetite kako se branchevi izdvajaju iz mastera. To jest, da svaki branch nastaje iz (ili iza) nekog commita. Za jednostavan rad s gitom, gledajte na brancheve kao na vezane liste, a commitove kao čvorove.  
